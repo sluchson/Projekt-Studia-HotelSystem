@@ -1,0 +1,13 @@
+debug/client.o
+debug/clientwindow.o
+debug/database.o
+debug/main.o
+debug/mainwindow.o
+debug/rental.o
+debug/rentalwindow.o
+debug/room.o
+debug/roomwindow.o
+debug/moc_clientwindow.o
+debug/moc_mainwindow.o
+debug/moc_rentalwindow.o
+debug/moc_roomwindow.o
