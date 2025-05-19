@@ -9,6 +9,7 @@ CONFIG += c++17            # Wersja C++ (opcjonalne, ale zalecane)
 
 # Pliki źródłowe
 SOURCES += \
+    addclient.cpp \
     client.cpp \
     clientwindow.cpp \
     database.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 # Pliki nagłówkowe
 HEADERS += \
+    addclient.h \
     client.h \
     clientwindow.h \
     database.h \
@@ -32,6 +34,7 @@ HEADERS += \
 
 # Pliki interfejsu (UI)
 FORMS += \
+    addclient.ui \
     clientwindow.ui \
     mainwindow.ui \
     rentalwindow.ui \

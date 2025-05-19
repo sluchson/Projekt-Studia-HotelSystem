@@ -15,6 +15,9 @@ public:
     explicit clientwindow(QWidget *parent = nullptr);
     ~clientwindow();
 
+private slots:
+    void on_pushButtonAddClient_clicked();
+
 private:
     Ui::clientwindow *ui;
 };

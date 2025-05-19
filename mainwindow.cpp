@@ -9,16 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    if (!db.openConnection()) {
-        QMessageBox::critical(this, "Błąd połączenia", "Nie można połączyć z bazą danych.");
-    }
-
 }
 
 MainWindow::~MainWindow()
 {
-    db.closeConnection();
     delete ui;
 }
 

@@ -7,17 +7,22 @@
 #include <QSqlError>
 
 
+
 Database::Database() {
-    db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setDatabaseName("hotel_db");
-    db.setUserName("postgres");
-    db.setPassword("admin");
+    // Pusta definicja konstruktora
 }
 
 bool Database::openConnection() {
+    if (!db.isValid()) {
+        db = QSqlDatabase::addDatabase("QPSQL");
+        db.setHostName("localhost");
+        db.setDatabaseName("hotel_db");
+        db.setUserName("postgres");
+        db.setPassword("admin");
+    }
     return db.open();
 }
+
 
 void Database::closeConnection() {
     db.close();
@@ -27,6 +32,7 @@ QSqlDatabase& Database::getDatabase() {
     return db;
 }
 
+//Modele poszczególnych tabel
 QSqlTableModel* Database::getClientsModel() {
     QSqlTableModel* model = new QSqlTableModel;
     model->setTable("clients");
@@ -50,7 +56,13 @@ QSqlTableModel* Database::getRentalsModel() {
 
     // Operacje dodawania i usuwania klienta
     bool Database::addClient(const Client& client) {
-        QSqlQuery query;
+        if (!db.isOpen()) {
+            qDebug() << "Połączenie z bazą danych nie jest aktywne";
+            return false;
+        }
+
+        QSqlQuery query(db);
+
         query.prepare("INSERT INTO clients (first_name, last_name, email, phone_number) "
                       "VALUES (:first_name, :last_name, :email, :phone_number)");
         query.bindValue(":first_name", client.getFirstName());
@@ -67,7 +79,7 @@ QSqlTableModel* Database::getRentalsModel() {
     }
 
     bool Database::removeClient(int clientId) {
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.prepare("DELETE FROM clients WHERE client_id = :id");
         query.bindValue(":id", clientId);
 
@@ -88,7 +100,7 @@ QSqlTableModel* Database::getRentalsModel() {
 
     //Operacje dodawania i usuwania pokoju
     bool Database::addRoom(const Room& room) {
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.prepare("INSERT INTO rooms (room_number, type, price_per_night, available) "
                       "VALUES (:room_number, :type, :price, :available)");
         query.bindValue(":room_number", room.getNumber());
@@ -106,7 +118,7 @@ QSqlTableModel* Database::getRentalsModel() {
 
 
     bool Database::removeRoom(int roomNumber) {
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.prepare("DELETE FROM rooms WHERE room_number = :room_number");
         query.bindValue(":room_number", roomNumber);
 
@@ -126,7 +138,7 @@ QSqlTableModel* Database::getRentalsModel() {
 
     //Operacje dodawania i usuwania rezerwacji
     bool Database::addRental(const Rental& rental) {
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.prepare("INSERT INTO rentals (client_id, room_number, check_in_date, check_out_date, total_price) "
                       "VALUES (:client_id, :room_number, :check_in, :check_out, :total)");
         query.bindValue(":client_id", rental.getClientId());
@@ -143,7 +155,7 @@ QSqlTableModel* Database::getRentalsModel() {
     }
 
     bool Database::removeRental(int rentalId) {
-        QSqlQuery query;
+        QSqlQuery query(db);
         query.prepare("DELETE FROM rentals WHERE rental_id = :id");
         query.bindValue(":id", rentalId);
 

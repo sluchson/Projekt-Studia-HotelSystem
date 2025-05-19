@@ -1,3 +1,4 @@
+release/addclient.o
 release/client.o
 release/clientwindow.o
 release/database.o
@@ -7,6 +8,7 @@ release/rental.o
 release/rentalwindow.o
 release/room.o
 release/roomwindow.o
+release/moc_addclient.o
 release/moc_clientwindow.o
 release/moc_mainwindow.o
 release/moc_rentalwindow.o

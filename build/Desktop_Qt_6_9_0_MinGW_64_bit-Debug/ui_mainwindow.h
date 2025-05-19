@@ -33,22 +33,24 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(800, 600);
+        MainWindow->resize(801, 600);
+        MainWindow->setMaximumSize(QSize(801, 600));
+        MainWindow->setMouseTracking(false);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         ClientsButton = new QPushButton(centralwidget);
         ClientsButton->setObjectName("ClientsButton");
-        ClientsButton->setGeometry(QRect(110, 230, 151, 91));
+        ClientsButton->setGeometry(QRect(100, 230, 151, 91));
         RoomsButton = new QPushButton(centralwidget);
         RoomsButton->setObjectName("RoomsButton");
         RoomsButton->setGeometry(QRect(320, 230, 151, 91));
         RentalsButton = new QPushButton(centralwidget);
         RentalsButton->setObjectName("RentalsButton");
-        RentalsButton->setGeometry(QRect(540, 230, 151, 91));
+        RentalsButton->setGeometry(QRect(550, 230, 151, 91));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 801, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
