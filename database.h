@@ -31,6 +31,8 @@ public:
     bool addRental(const Rental& rental);
     bool removeRental(int rentalId);
 
+    QString searchRecord(const QString& table, const QString& column, const QString& value);
+
 
 private:
     QSqlDatabase db;

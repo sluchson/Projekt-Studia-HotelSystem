@@ -18,6 +18,10 @@ public:
 private slots:
     void on_pushButtonAddClient_clicked();
 
+    void on_pushButtonDeleteClient_clicked();
+
+    void on_pushButton_searchClient_clicked();
+
 private:
     Ui::clientwindow *ui;
 };

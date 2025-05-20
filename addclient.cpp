@@ -22,17 +22,17 @@ addclient::~addclient()
 void addclient::on_addButton_clicked()
 {
 
-    QString firstName = ui->firstNameEdit->text();
-    QString lastName = ui->lastNameEdit->text();
+    QString first_name = ui->firstNameEdit->text();
+    QString last_name = ui->lastNameEdit->text();
     QString email = ui->emailEdit->text();
     QString phone = ui->phoneEdit->text();
 
-    if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty()) {
+    if (first_name.isEmpty() || last_name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
         QMessageBox::warning(this, "Błąd", "Wszystkie pola muszą być wypełnione.");
         return;
     }
 
-    Client newClient(firstName, lastName, email, phone);
+    Client newClient(first_name, last_name, email, phone);
     if (db.addClient(newClient)) {
         QMessageBox::information(this, "Sukces", "Dodano klienta.");
         emit clientAdded();  // powiadamia clientwindow o dodaniu

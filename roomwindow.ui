@@ -17,11 +17,34 @@
    <widget class="QTableView" name="tableViewRooms">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
+      <x>40</x>
+      <y>90</y>
       <width>661</width>
       <height>321</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_searchRoomNumber">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>30</y>
+      <width>211</width>
+      <height>28</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_searchRoom">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>30</y>
+      <width>83</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
     </property>
    </widget>
   </widget>

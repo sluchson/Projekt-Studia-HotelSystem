@@ -12,8 +12,10 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
@@ -25,6 +27,10 @@ class Ui_rentalwindow
 public:
     QWidget *centralwidget;
     QTableView *tableViewRentals;
+    QPushButton *pushButtonAddRental;
+    QPushButton *pushButtonDeleteRental;
+    QLineEdit *lineEdit_searchRentalId;
+    QPushButton *pushButton_searchRental;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -37,7 +43,19 @@ public:
         centralwidget->setObjectName("centralwidget");
         tableViewRentals = new QTableView(centralwidget);
         tableViewRentals->setObjectName("tableViewRentals");
-        tableViewRentals->setGeometry(QRect(10, 20, 571, 511));
+        tableViewRentals->setGeometry(QRect(20, 90, 751, 301));
+        pushButtonAddRental = new QPushButton(centralwidget);
+        pushButtonAddRental->setObjectName("pushButtonAddRental");
+        pushButtonAddRental->setGeometry(QRect(220, 410, 131, 91));
+        pushButtonDeleteRental = new QPushButton(centralwidget);
+        pushButtonDeleteRental->setObjectName("pushButtonDeleteRental");
+        pushButtonDeleteRental->setGeometry(QRect(420, 420, 131, 91));
+        lineEdit_searchRentalId = new QLineEdit(centralwidget);
+        lineEdit_searchRentalId->setObjectName("lineEdit_searchRentalId");
+        lineEdit_searchRentalId->setGeometry(QRect(390, 50, 241, 28));
+        pushButton_searchRental = new QPushButton(centralwidget);
+        pushButton_searchRental->setObjectName("pushButton_searchRental");
+        pushButton_searchRental->setGeometry(QRect(650, 50, 83, 29));
         rentalwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(rentalwindow);
         menubar->setObjectName("menubar");
@@ -55,6 +73,9 @@ public:
     void retranslateUi(QMainWindow *rentalwindow)
     {
         rentalwindow->setWindowTitle(QCoreApplication::translate("rentalwindow", "MainWindow", nullptr));
+        pushButtonAddRental->setText(QCoreApplication::translate("rentalwindow", "Add rental", nullptr));
+        pushButtonDeleteRental->setText(QCoreApplication::translate("rentalwindow", "Delete rental", nullptr));
+        pushButton_searchRental->setText(QCoreApplication::translate("rentalwindow", "Search", nullptr));
     } // retranslateUi
 
 };

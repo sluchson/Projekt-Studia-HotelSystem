@@ -1,7 +1,10 @@
 release/addclient.o
+release/addrental.o
 release/client.o
 release/clientwindow.o
 release/database.o
+release/deleteclient.o
+release/deleterental.o
 release/main.o
 release/mainwindow.o
 release/rental.o
@@ -9,7 +12,10 @@ release/rentalwindow.o
 release/room.o
 release/roomwindow.o
 release/moc_addclient.o
+release/moc_addrental.o
 release/moc_clientwindow.o
+release/moc_deleteclient.o
+release/moc_deleterental.o
 release/moc_mainwindow.o
 release/moc_rentalwindow.o
 release/moc_roomwindow.o

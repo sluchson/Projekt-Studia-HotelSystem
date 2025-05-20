@@ -61,7 +61,7 @@ public:
         addButton->setGeometry(QRect(30, 350, 121, 61));
         label = new QLabel(centralwidget);
         label->setObjectName("label");
-        label->setGeometry(QRect(30, 30, 49, 16));
+        label->setGeometry(QRect(30, 40, 49, 16));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName("label_2");
         label_2->setGeometry(QRect(30, 110, 71, 16));
@@ -74,7 +74,7 @@ public:
         addclient->setCentralWidget(centralwidget);
         menubar = new QMenuBar(addclient);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         addclient->setMenuBar(menubar);
         statusbar = new QStatusBar(addclient);
         statusbar->setObjectName("statusbar");

@@ -12,8 +12,10 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
@@ -25,6 +27,8 @@ class Ui_roomwindow
 public:
     QWidget *centralwidget;
     QTableView *tableViewRooms;
+    QLineEdit *lineEdit_searchRoomNumber;
+    QPushButton *pushButton_searchRoom;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -37,7 +41,13 @@ public:
         centralwidget->setObjectName("centralwidget");
         tableViewRooms = new QTableView(centralwidget);
         tableViewRooms->setObjectName("tableViewRooms");
-        tableViewRooms->setGeometry(QRect(10, 30, 661, 321));
+        tableViewRooms->setGeometry(QRect(40, 90, 661, 321));
+        lineEdit_searchRoomNumber = new QLineEdit(centralwidget);
+        lineEdit_searchRoomNumber->setObjectName("lineEdit_searchRoomNumber");
+        lineEdit_searchRoomNumber->setGeometry(QRect(390, 30, 211, 28));
+        pushButton_searchRoom = new QPushButton(centralwidget);
+        pushButton_searchRoom->setObjectName("pushButton_searchRoom");
+        pushButton_searchRoom->setGeometry(QRect(630, 30, 83, 29));
         roomwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(roomwindow);
         menubar->setObjectName("menubar");
@@ -55,6 +65,7 @@ public:
     void retranslateUi(QMainWindow *roomwindow)
     {
         roomwindow->setWindowTitle(QCoreApplication::translate("roomwindow", "MainWindow", nullptr));
+        pushButton_searchRoom->setText(QCoreApplication::translate("roomwindow", "Search", nullptr));
     } // retranslateUi
 
 };

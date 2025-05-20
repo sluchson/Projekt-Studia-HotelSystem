@@ -5,6 +5,7 @@
 #include <QVariant>
 #include <QDebug>
 #include <QSqlError>
+#include <QSqlRecord>
 
 
 
@@ -56,19 +57,14 @@ QSqlTableModel* Database::getRentalsModel() {
 
     // Operacje dodawania i usuwania klienta
     bool Database::addClient(const Client& client) {
-        if (!db.isOpen()) {
-            qDebug() << "Połączenie z bazą danych nie jest aktywne";
-            return false;
-        }
+        QSqlQuery query;
 
-        QSqlQuery query(db);
-
-        query.prepare("INSERT INTO clients (first_name, last_name, email, phone_number) "
-                      "VALUES (:first_name, :last_name, :email, :phone_number)");
+        query.prepare("INSERT INTO clients (first_name, last_name, email, phone) "
+                      "VALUES (:first_name, :last_name, :email, :phone)");
         query.bindValue(":first_name", client.getFirstName());
         query.bindValue(":last_name", client.getLastName());
         query.bindValue(":email", client.getEmail());
-        query.bindValue(":phone_number", client.getPhoneNumber());
+        query.bindValue(":phone", client.getPhoneNumber());
 
         if (!query.exec()) {
             qDebug() << "Błąd dodawania klienta:" << query.lastError().text();
@@ -79,7 +75,7 @@ QSqlTableModel* Database::getRentalsModel() {
     }
 
     bool Database::removeClient(int clientId) {
-        QSqlQuery query(db);
+        QSqlQuery query;
         query.prepare("DELETE FROM clients WHERE client_id = :id");
         query.bindValue(":id", clientId);
 
@@ -100,13 +96,13 @@ QSqlTableModel* Database::getRentalsModel() {
 
     //Operacje dodawania i usuwania pokoju
     bool Database::addRoom(const Room& room) {
-        QSqlQuery query(db);
-        query.prepare("INSERT INTO rooms (room_number, type, price_per_night, available) "
-                      "VALUES (:room_number, :type, :price, :available)");
+        QSqlQuery query;
+        query.prepare("INSERT INTO rooms (room_number, room_type, price_per_night, is_available) "
+                      "VALUES (:room_number, :room_type, :price_per_night, :is_available)");
         query.bindValue(":room_number", room.getNumber());
-        query.bindValue(":type", room.getType());
-        query.bindValue(":price", room.getPricePerNight());
-        query.bindValue(":available", room.isAvailable());
+        query.bindValue(":room_type", room.getType());
+        query.bindValue(":price_per_night", room.getPricePerNight());
+        query.bindValue(":is_available", room.isAvailable());
 
         if (!query.exec()) {
             qDebug() << "Blad dodawania pokoju:" << query.lastError().text();
@@ -118,7 +114,7 @@ QSqlTableModel* Database::getRentalsModel() {
 
 
     bool Database::removeRoom(int roomNumber) {
-        QSqlQuery query(db);
+        QSqlQuery query;
         query.prepare("DELETE FROM rooms WHERE room_number = :room_number");
         query.bindValue(":room_number", roomNumber);
 
@@ -140,22 +136,34 @@ QSqlTableModel* Database::getRentalsModel() {
     bool Database::addRental(const Rental& rental) {
         QSqlQuery query(db);
         query.prepare("INSERT INTO rentals (client_id, room_number, check_in_date, check_out_date, total_price) "
-                      "VALUES (:client_id, :room_number, :check_in, :check_out, :total)");
+                      "VALUES (:client_id, :room_number, :check_in_date, :check_out_date, :total_price)");
         query.bindValue(":client_id", rental.getClientId());
         query.bindValue(":room_number", rental.getRoomNumber());
-        query.bindValue(":check_in", rental.getCheckInDate());
-        query.bindValue(":check_out", rental.getCheckOutDate());
-        query.bindValue(":total", rental.getTotalPrice());
+        query.bindValue(":check_in_date", rental.getCheckInDate());
+        query.bindValue(":check_out_date", rental.getCheckOutDate());
+        query.bindValue(":total_price", rental.getTotalPrice());
 
         if (!query.exec()) {
-            qDebug() << "Blad dodawania wynajmu:" << query.lastError().text();
+            qDebug() << "Błąd dodawania wypożyczenia:" << query.lastError().text();
             return false;
         }
+
+        // Zmieniamy status pokoju na niedostępny
+        QSqlQuery updateQuery(db);
+        updateQuery.prepare("UPDATE rooms SET is_available = false WHERE room_number = :room_number");
+        updateQuery.bindValue(":room_number", rental.getRoomNumber());
+
+        if (!updateQuery.exec()) {
+            qDebug() << "Błąd aktualizacji dostępności pokoju:" << updateQuery.lastError().text();
+            return false;
+        }
+
         return true;
     }
 
+
     bool Database::removeRental(int rentalId) {
-        QSqlQuery query(db);
+        QSqlQuery query;
         query.prepare("DELETE FROM rentals WHERE rental_id = :id");
         query.bindValue(":id", rentalId);
 
@@ -170,3 +178,25 @@ QSqlTableModel* Database::getRentalsModel() {
         return true;
     }
 
+
+    QString Database::searchRecord(const QString& table, const QString& column, const QString& value) {
+        QSqlQuery query(db);
+        QString sql = QString("SELECT * FROM %1 WHERE %2 = :value").arg(table, column);
+        query.prepare(sql);
+        query.bindValue(":value", value);
+
+        if (!query.exec()) {
+            return "Błąd zapytania: " + query.lastError().text();
+        }
+
+        if (query.next()) {
+            QString result;
+            QSqlRecord record = query.record();
+            for (int i = 0; i < record.count(); ++i) {
+                result += record.fieldName(i) + ": " + query.value(i).toString() + "\n";
+            }
+            return result.trimmed();
+        } else {
+            return "Nie znaleziono rekordu.";
+        }
+    }

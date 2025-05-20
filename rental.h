@@ -10,6 +10,11 @@ public:
     Rental(int rentalId, int clientId, int roomNumber,
            const QDate &checkInDate, const QDate &checkOutDate, double totalPrice);
 
+    // Konstruktor bez rentalId – do dodawania nowego wypożyczenia
+    Rental(int clientId, int roomNumber,
+           const QDate &checkInDate,
+           const QDate &checkOutDate, double totalPrice);
+
     int getRentalId() const;
     int getClientId() const;
     int getRoomNumber() const;

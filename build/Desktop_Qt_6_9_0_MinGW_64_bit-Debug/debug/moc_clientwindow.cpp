@@ -40,12 +40,18 @@ template <> constexpr inline auto clientwindow::qt_create_metaobjectdata<qt_meta
     QtMocHelpers::StringRefStorage qt_stringData {
         "clientwindow",
         "on_pushButtonAddClient_clicked",
-        ""
+        "",
+        "on_pushButtonDeleteClient_clicked",
+        "on_pushButton_searchClient_clicked"
     };
 
     QtMocHelpers::UintData qt_methods {
         // Slot 'on_pushButtonAddClient_clicked'
         QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_pushButtonDeleteClient_clicked'
+        QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_pushButton_searchClient_clicked'
+        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -70,6 +76,8 @@ void clientwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->on_pushButtonAddClient_clicked(); break;
+        case 1: _t->on_pushButtonDeleteClient_clicked(); break;
+        case 2: _t->on_pushButton_searchClient_clicked(); break;
         default: ;
         }
     }
@@ -95,14 +103,14 @@ int clientwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
 }

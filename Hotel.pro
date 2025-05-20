@@ -10,9 +10,12 @@ CONFIG += c++17            # Wersja C++ (opcjonalne, ale zalecane)
 # Pliki źródłowe
 SOURCES += \
     addclient.cpp \
+    addrental.cpp \
     client.cpp \
     clientwindow.cpp \
     database.cpp \
+    deleteclient.cpp \
+    deleterental.cpp \
     main.cpp \
     mainwindow.cpp \
     rental.cpp \
@@ -23,9 +26,12 @@ SOURCES += \
 # Pliki nagłówkowe
 HEADERS += \
     addclient.h \
+    addrental.h \
     client.h \
     clientwindow.h \
     database.h \
+    deleteclient.h \
+    deleterental.h \
     mainwindow.h \
     rental.h \
     rentalwindow.h \
@@ -35,7 +41,10 @@ HEADERS += \
 # Pliki interfejsu (UI)
 FORMS += \
     addclient.ui \
+    addrental.ui \
     clientwindow.ui \
+    deleteclient.ui \
+    deleterental.ui \
     mainwindow.ui \
     rentalwindow.ui \
     roomwindow.ui

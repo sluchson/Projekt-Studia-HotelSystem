@@ -15,6 +15,9 @@ public:
     explicit roomwindow(QWidget *parent = nullptr);
     ~roomwindow();
 
+private slots:
+    void on_pushButton_searchRoom_clicked();
+
 private:
     Ui::roomwindow *ui;
 };

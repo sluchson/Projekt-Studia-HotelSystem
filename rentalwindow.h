@@ -15,6 +15,13 @@ public:
     explicit rentalwindow(QWidget *parent = nullptr);
     ~rentalwindow();
 
+private slots:
+    void on_pushButtonAddRental_clicked();
+
+    void on_pushButtonDeleteRental_clicked();
+
+     void on_pushButton_searchRental_clicked();
+
 private:
     Ui::rentalwindow *ui;
 };
