@@ -12,6 +12,9 @@ roomwindow::roomwindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableViewRooms->setModel(db.getRoomsModel());
+
+    connect(ui->tableViewRooms, &QTableView::clicked, this, &roomwindow::handleRoomRowClick);
+    ui->tableViewRooms->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 roomwindow::~roomwindow()
@@ -19,19 +22,10 @@ roomwindow::~roomwindow()
     delete ui;
 }
 
-
-void roomwindow::on_pushButton_searchRoom_clicked()
+void roomwindow::displayRoomDetails(QWidget *parent, const QString& roomNumber)
 {
-    QString roomNumber = ui->lineEdit_searchRoomNumber->text().trimmed();
-    if (roomNumber.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wprowadź numer pokoju do wyszukania.");
-        return;
-    }
-
-    // Dane pokoju
     QString roomInfo = db.searchRecord("rooms", "room_number", roomNumber);
 
-    // Szukaj wypożyczeń dla pokoju
     QString rentalInfo;
     QSqlQuery query;
     query.prepare("SELECT rental_id, client_id, check_in_date, check_out_date FROM rentals WHERE room_number = :room_number");
@@ -54,6 +48,32 @@ void roomwindow::on_pushButton_searchRoom_clicked()
         fullInfo += "\n\nPokój nie ma przypisanych wypożyczeń.";
     }
 
-    QMessageBox::information(this, "Wynik wyszukiwania", fullInfo);
+    QMessageBox::information(parent, "Wynik wyszukiwania", fullInfo);
+}
+
+void roomwindow::on_pushButton_searchRoom_clicked()
+{
+    QString roomNumber = ui->lineEdit_searchRoomNumber->text().trimmed();
+    if (roomNumber.isEmpty()) {
+        QMessageBox::warning(this, "Błąd", "Wprowadź numer pokoju do wyszukania.");
+        return;
+    }
+
+    roomwindow::displayRoomDetails(this, roomNumber);
+}
+
+
+void roomwindow::handleRoomRowClick(const QModelIndex &index)
+{
+    if (!index.isValid()) return;
+
+    QString roomNumber = ui->tableViewRooms->model()->data(ui->tableViewRooms->model()->index(index.row(), 0)).toString();
+    roomwindow::displayRoomDetails(this, roomNumber);
+}
+
+void roomwindow::on_pushButtonRefresh_clicked()
+{
+    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRooms->model());
+    db.refreshExistingModel(model);
 }
 

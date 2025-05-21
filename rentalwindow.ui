@@ -18,19 +18,19 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>90</y>
-      <width>751</width>
-      <height>301</height>
+      <y>70</y>
+      <width>621</width>
+      <height>401</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButtonAddRental">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>410</y>
-      <width>131</width>
-      <height>91</height>
+      <x>20</x>
+      <y>490</y>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -40,10 +40,10 @@
    <widget class="QPushButton" name="pushButtonDeleteRental">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>420</y>
-      <width>131</width>
-      <height>91</height>
+      <x>150</x>
+      <y>490</y>
+      <width>111</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -53,24 +53,68 @@
    <widget class="QLineEdit" name="lineEdit_searchRentalId">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>50</y>
-      <width>241</width>
-      <height>28</height>
+      <x>280</x>
+      <y>30</y>
+      <width>251</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_searchRental">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>50</y>
+      <x>530</x>
+      <y>30</y>
       <width>83</width>
-      <height>29</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelClients">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>RENTALS</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonRefresh">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>30</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>♻️</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Serach rental by id:</string>
     </property>
    </widget>
   </widget>
@@ -80,7 +124,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

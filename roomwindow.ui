@@ -17,34 +17,78 @@
    <widget class="QTableView" name="tableViewRooms">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>90</y>
-      <width>661</width>
-      <height>321</height>
+      <x>20</x>
+      <y>70</y>
+      <width>621</width>
+      <height>401</height>
      </rect>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_searchRoomNumber">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>280</x>
       <y>30</y>
-      <width>211</width>
-      <height>28</height>
+      <width>251</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_searchRoom">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>530</x>
       <y>30</y>
       <width>83</width>
-      <height>29</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelClients">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>181</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>ROOMS</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonRefresh">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>30</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>♻️</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search room by id:</string>
     </property>
    </widget>
   </widget>
@@ -54,7 +98,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

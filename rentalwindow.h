@@ -14,16 +14,21 @@ class rentalwindow : public QMainWindow
 public:
     explicit rentalwindow(QWidget *parent = nullptr);
     ~rentalwindow();
+    static void displayRentalDetails(QWidget *parent, const QString& rentalId);
+
+private:
+    Ui::rentalwindow *ui;
+
 
 private slots:
     void on_pushButtonAddRental_clicked();
 
     void on_pushButtonDeleteRental_clicked();
 
-     void on_pushButton_searchRental_clicked();
+    void on_pushButton_searchRental_clicked();
 
-private:
-    Ui::rentalwindow *ui;
+    void handleRentalRowClick(const QModelIndex &index);
+
+    void on_pushButtonRefresh_clicked();
 };
-
 #endif // RENTALWINDOW_H

@@ -16,12 +16,18 @@ public:
     explicit deleterental(QWidget *parent = nullptr);
     ~deleterental();
 
-private slots:
-    void handleRowClick(const QModelIndex &index);
-
 private:
     Ui::deleterental *ui;
     QSqlTableModel *rentalsModel;
+    bool deleteRentalById(const QString& rentalId);
+
+private slots:
+    void handleRowClick(const QModelIndex &index);
+
+    void on_pushButton_searchRental_clicked();
+
+
+    void on_pushButtonRefresh_clicked();
 };
 
 #endif // DELETERENTAL_H

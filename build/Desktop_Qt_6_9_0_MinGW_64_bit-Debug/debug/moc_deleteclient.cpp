@@ -42,7 +42,9 @@ template <> constexpr inline auto deleteclient::qt_create_metaobjectdata<qt_meta
         "handleRowClick",
         "",
         "QModelIndex",
-        "index"
+        "index",
+        "on_pushButton_searchClient_clicked",
+        "on_pushButtonRefresh_clicked"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -50,6 +52,10 @@ template <> constexpr inline auto deleteclient::qt_create_metaobjectdata<qt_meta
         QtMocHelpers::SlotData<void(const QModelIndex &)>(1, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 3, 4 },
         }}),
+        // Slot 'on_pushButton_searchClient_clicked'
+        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_pushButtonRefresh_clicked'
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -74,6 +80,8 @@ void deleteclient::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->handleRowClick((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 1: _t->on_pushButton_searchClient_clicked(); break;
+        case 2: _t->on_pushButtonRefresh_clicked(); break;
         default: ;
         }
     }
@@ -98,14 +106,14 @@ int deleteclient::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
 }

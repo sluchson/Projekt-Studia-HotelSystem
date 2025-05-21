@@ -14,6 +14,7 @@ class clientwindow : public QMainWindow
 public:
     explicit clientwindow(QWidget *parent = nullptr);
     ~clientwindow();
+    static void displayClientDetails(QWidget *parent, const QString& clientId);
 
 private slots:
     void on_pushButtonAddClient_clicked();
@@ -21,6 +22,10 @@ private slots:
     void on_pushButtonDeleteClient_clicked();
 
     void on_pushButton_searchClient_clicked();
+
+    void handleClientRowClick(const QModelIndex &index);
+
+    void on_pushButtonRefresh_clicked();
 
 private:
     Ui::clientwindow *ui;

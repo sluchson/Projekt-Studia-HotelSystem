@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -26,6 +27,7 @@ public:
     QPushButton *ClientsButton;
     QPushButton *RoomsButton;
     QPushButton *RentalsButton;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -40,13 +42,22 @@ public:
         centralwidget->setObjectName("centralwidget");
         ClientsButton = new QPushButton(centralwidget);
         ClientsButton->setObjectName("ClientsButton");
-        ClientsButton->setGeometry(QRect(100, 230, 151, 91));
+        ClientsButton->setGeometry(QRect(180, 270, 111, 61));
         RoomsButton = new QPushButton(centralwidget);
         RoomsButton->setObjectName("RoomsButton");
-        RoomsButton->setGeometry(QRect(320, 230, 151, 91));
+        RoomsButton->setGeometry(QRect(340, 270, 111, 61));
         RentalsButton = new QPushButton(centralwidget);
         RentalsButton->setObjectName("RentalsButton");
-        RentalsButton->setGeometry(QRect(550, 230, 151, 91));
+        RentalsButton->setGeometry(QRect(500, 270, 111, 61));
+        label = new QLabel(centralwidget);
+        label->setObjectName("label");
+        label->setGeometry(QRect(110, 110, 581, 111));
+        QFont font;
+        font.setFamilies({QString::fromUtf8("Ravie")});
+        font.setPointSize(48);
+        font.setItalic(false);
+        font.setUnderline(false);
+        label->setFont(font);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -67,6 +78,7 @@ public:
         ClientsButton->setText(QCoreApplication::translate("MainWindow", "Clients", nullptr));
         RoomsButton->setText(QCoreApplication::translate("MainWindow", "Rooms", nullptr));
         RentalsButton->setText(QCoreApplication::translate("MainWindow", "Rentals", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Hotel System", nullptr));
     } // retranslateUi
 
 };

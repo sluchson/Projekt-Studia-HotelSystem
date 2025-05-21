@@ -40,12 +40,22 @@ template <> constexpr inline auto roomwindow::qt_create_metaobjectdata<qt_meta_t
     QtMocHelpers::StringRefStorage qt_stringData {
         "roomwindow",
         "on_pushButton_searchRoom_clicked",
-        ""
+        "",
+        "handleRoomRowClick",
+        "QModelIndex",
+        "index",
+        "on_pushButtonRefresh_clicked"
     };
 
     QtMocHelpers::UintData qt_methods {
         // Slot 'on_pushButton_searchRoom_clicked'
         QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'handleRoomRowClick'
+        QtMocHelpers::SlotData<void(const QModelIndex &)>(3, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 4, 5 },
+        }}),
+        // Slot 'on_pushButtonRefresh_clicked'
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -70,10 +80,11 @@ void roomwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->on_pushButton_searchRoom_clicked(); break;
+        case 1: _t->handleRoomRowClick((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 2: _t->on_pushButtonRefresh_clicked(); break;
         default: ;
         }
     }
-    (void)_a;
 }
 
 const QMetaObject *roomwindow::metaObject() const
@@ -95,14 +106,14 @@ int roomwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 3;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 1;
+        _id -= 3;
     }
     return _id;
 }

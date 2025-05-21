@@ -14,6 +14,10 @@ clientwindow::clientwindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableViewClients->setModel(db.getClientsModel());
+
+    connect(ui->tableViewClients, &QTableView::clicked, this, &clientwindow::handleClientRowClick);
+    ui->tableViewClients->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 }
 
 clientwindow::~clientwindow()
@@ -35,18 +39,10 @@ void clientwindow::on_pushButtonDeleteClient_clicked()
 }
 
 
-void clientwindow::on_pushButton_searchClient_clicked()
+void clientwindow::displayClientDetails(QWidget *parent, const QString& clientId)
 {
-    QString clientId = ui->lineEdit_searchClientId->text().trimmed();
-    if (clientId.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wprowadź ID klienta do wyszukania.");
-        return;
-    }
-
-    // Dane klienta
     QString clientInfo = db.searchRecord("clients", "client_id", clientId);
 
-    // Szukaj wypożyczeń
     QString rentalInfo;
     QSqlQuery query;
     query.prepare("SELECT rental_id, room_number, check_in_date, check_out_date FROM rentals WHERE client_id = :client_id");
@@ -69,7 +65,33 @@ void clientwindow::on_pushButton_searchClient_clicked()
         fullInfo += "\n\nKlient nie posiada wypożyczeń.";
     }
 
-    QMessageBox::information(this, "Wynik wyszukiwania", fullInfo);
+    QMessageBox::information(parent, "Wynik wyszukiwania", fullInfo);
 }
 
+
+void clientwindow::on_pushButton_searchClient_clicked()
+{
+    QString clientId = ui->lineEdit_searchClientId->text().trimmed();
+    if (clientId.isEmpty()) {
+        QMessageBox::warning(this, "Błąd", "Wprowadź ID klienta do wyszukania.");
+        return;
+    }
+
+    clientwindow::displayClientDetails(this, clientId);
+}
+
+
+void clientwindow::handleClientRowClick(const QModelIndex &index)
+{
+    if (!index.isValid()) return;
+
+    QString clientId = ui->tableViewClients->model()->data(ui->tableViewClients->model()->index(index.row(), 0)).toString();
+    clientwindow::displayClientDetails(this, clientId);
+}
+
+void clientwindow::on_pushButtonRefresh_clicked()
+{
+    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewClients->model());
+    db.refreshExistingModel(model);
+}
 

@@ -14,12 +14,17 @@ class roomwindow : public QMainWindow
 public:
     explicit roomwindow(QWidget *parent = nullptr);
     ~roomwindow();
-
-private slots:
-    void on_pushButton_searchRoom_clicked();
+    static void displayRoomDetails(QWidget *parent, const QString& roomNumber);
 
 private:
     Ui::roomwindow *ui;
+
+private slots:
+    void on_pushButton_searchRoom_clicked();
+    void handleRoomRowClick(const QModelIndex &index);
+
+
+    void on_pushButtonRefresh_clicked();
 };
 
 #endif // ROOMWINDOW_H

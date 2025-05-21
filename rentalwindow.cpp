@@ -15,6 +15,9 @@ rentalwindow::rentalwindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableViewRentals->setModel(db.getRentalsModel());
+
+    connect(ui->tableViewRentals, &QTableView::clicked, this, &rentalwindow::handleRentalRowClick);
+    ui->tableViewRentals->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 rentalwindow::~rentalwindow()
@@ -35,19 +38,16 @@ void rentalwindow::on_pushButtonDeleteRental_clicked()
     deleteRentalWin->show();
 }
 
-void rentalwindow::on_pushButton_searchRental_clicked()
+void rentalwindow::displayRentalDetails(QWidget *parent, const QString& rentalId)
 {
-    QString rentalId = ui->lineEdit_searchRentalId->text().trimmed();
     if (rentalId.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wprowadź ID wypożyczenia do wyszukania.");
+        QMessageBox::warning(parent, "Błąd", "ID wypożyczenia jest puste.");
         return;
     }
 
-    // Dane wypożyczenia
     QString rentalInfo = db.searchRecord("rentals", "rental_id", rentalId);
     QString fullInfo = rentalInfo;
 
-    // Jeśli znaleziono, to szukamy danych klienta i pokoju
     if (!rentalInfo.contains("Nie znaleziono")) {
         QSqlQuery query;
         query.prepare("SELECT client_id, room_number FROM rentals WHERE rental_id = :rental_id");
@@ -57,16 +57,35 @@ void rentalwindow::on_pushButton_searchRental_clicked()
             QString clientId = query.value("client_id").toString();
             QString roomNumber = query.value("room_number").toString();
 
-            // Dane klienta
             QString clientInfo = db.searchRecord("clients", "client_id", clientId);
             fullInfo += "\n\n--- Dane klienta ---\n" + clientInfo;
 
-            // Dane pokoju
             QString roomInfo = db.searchRecord("rooms", "room_number", roomNumber);
             fullInfo += "\n\n--- Dane pokoju ---\n" + roomInfo;
         }
     }
 
-    QMessageBox::information(this, "Wynik wyszukiwania", fullInfo);
+    QMessageBox::information(parent, "Wynik wyszukiwania", fullInfo);
+}
+
+
+void rentalwindow::on_pushButton_searchRental_clicked()
+{
+    QString rentalId = ui->lineEdit_searchRentalId->text().trimmed();
+    rentalwindow::displayRentalDetails(this, rentalId);
+}
+
+void rentalwindow::handleRentalRowClick(const QModelIndex &index)
+{
+    if (!index.isValid()) return;
+
+    QString rentalId = ui->tableViewRentals->model()->data(ui->tableViewRentals->model()->index(index.row(), 0)).toString();
+    rentalwindow::displayRentalDetails(this, rentalId);
+}
+
+void rentalwindow::on_pushButtonRefresh_clicked()
+{
+    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRentals->model());
+    db.refreshExistingModel(model);
 }
 
