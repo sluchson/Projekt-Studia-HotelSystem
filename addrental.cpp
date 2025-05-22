@@ -96,6 +96,7 @@ void addrental::on_pushButton_add_rental_clicked()
 
     if (db.addRental(rental)) {
         QMessageBox::information(this, "Sukces", "Dodano wypożyczenie");
+        emit rentalAdded();  // powiadamia rentalwindow o dodaniu
         this->close();
     } else {
         QMessageBox::warning(this, "Błąd", "Nie udało się dodać wypożyczenia.");

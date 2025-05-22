@@ -33,6 +33,11 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Add rental</string>
     </property>
@@ -46,6 +51,11 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Delete rental</string>
     </property>
@@ -53,24 +63,11 @@
    <widget class="QLineEdit" name="lineEdit_searchRental">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>390</x>
       <y>30</y>
       <width>251</width>
       <height>31</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_searchRental">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>30</y>
-      <width>83</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelClients">
@@ -85,6 +82,8 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <italic>true</italic>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -117,8 +116,31 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>From:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>181</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Search by id or client id:</string>
     </property>
    </widget>
   </widget>
@@ -128,7 +150,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

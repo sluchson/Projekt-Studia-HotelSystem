@@ -1,7 +1,6 @@
 #include "deleteclient.h"
 #include "ui_deleteclient.h"
 #include "database.h"
-#include "clientwindow.h"
 #include "deleterental.h"
 #include <QMessageBox>
 #include <QSqlQuery>

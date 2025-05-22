@@ -23,6 +23,11 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Add rental</string>
     </property>
@@ -86,6 +91,11 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Client:</string>
     </property>
@@ -98,6 +108,11 @@
       <width>63</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Room:</string>
@@ -112,6 +127,11 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Check in:</string>
     </property>
@@ -124,6 +144,11 @@
       <width>91</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Check out:</string>
@@ -138,6 +163,11 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Total price:</string>
     </property>
@@ -147,13 +177,15 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>231</width>
+      <width>251</width>
       <height>49</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <italic>true</italic>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -167,7 +199,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

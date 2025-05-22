@@ -32,6 +32,7 @@ public:
     QPushButton *pushButtonAddClient;
     QPushButton *pushButtonDeleteClient;
     QLineEdit *lineEdit_searchClient;
+    QLabel *label_4;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -40,7 +41,7 @@ public:
         if (clientwindow->objectName().isEmpty())
             clientwindow->setObjectName("clientwindow");
         clientwindow->setEnabled(true);
-        clientwindow->resize(800, 600);
+        clientwindow->resize(800, 598);
         centralwidget = new QWidget(clientwindow);
         centralwidget->setObjectName("centralwidget");
         tableViewClients = new QTableView(centralwidget);
@@ -52,20 +53,30 @@ public:
         labelClients->setGeometry(QRect(20, 10, 181, 41));
         QFont font;
         font.setPointSize(24);
+        font.setBold(true);
+        font.setItalic(true);
         labelClients->setFont(font);
         pushButtonAddClient = new QPushButton(centralwidget);
         pushButtonAddClient->setObjectName("pushButtonAddClient");
-        pushButtonAddClient->setGeometry(QRect(20, 490, 101, 61));
+        pushButtonAddClient->setGeometry(QRect(20, 480, 101, 61));
+        QFont font1;
+        font1.setBold(true);
+        pushButtonAddClient->setFont(font1);
         pushButtonDeleteClient = new QPushButton(centralwidget);
         pushButtonDeleteClient->setObjectName("pushButtonDeleteClient");
-        pushButtonDeleteClient->setGeometry(QRect(140, 490, 101, 61));
+        pushButtonDeleteClient->setGeometry(QRect(140, 480, 101, 61));
+        pushButtonDeleteClient->setFont(font1);
         lineEdit_searchClient = new QLineEdit(centralwidget);
         lineEdit_searchClient->setObjectName("lineEdit_searchClient");
         lineEdit_searchClient->setGeometry(QRect(390, 30, 251, 31));
+        label_4 = new QLabel(centralwidget);
+        label_4->setObjectName("label_4");
+        label_4->setGeometry(QRect(390, 10, 211, 16));
+        label_4->setFont(font1);
         clientwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(clientwindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         clientwindow->setMenuBar(menubar);
         statusbar = new QStatusBar(clientwindow);
         statusbar->setObjectName("statusbar");
@@ -82,6 +93,7 @@ public:
         labelClients->setText(QCoreApplication::translate("clientwindow", "CLIENTS", nullptr));
         pushButtonAddClient->setText(QCoreApplication::translate("clientwindow", "Add client", nullptr));
         pushButtonDeleteClient->setText(QCoreApplication::translate("clientwindow", "Delete client", nullptr));
+        label_4->setText(QCoreApplication::translate("clientwindow", "Search by name or surrname:", nullptr));
     } // retranslateUi
 
 };

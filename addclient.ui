@@ -22,14 +22,20 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>202</width>
+      <width>261</width>
       <height>49</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <italic>true</italic>
+      <bold>true</bold>
+      <underline>false</underline>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="text">
      <string>ADD CLIENT</string>
@@ -40,9 +46,14 @@
      <rect>
       <x>340</x>
       <y>110</y>
-      <width>35</width>
+      <width>71</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Name:</string>
@@ -56,9 +67,14 @@
      <rect>
       <x>340</x>
       <y>170</y>
-      <width>54</width>
+      <width>81</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Surrname:</string>
@@ -82,9 +98,14 @@
      <rect>
       <x>340</x>
       <y>230</y>
-      <width>32</width>
+      <width>71</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Email:</string>
@@ -108,9 +129,14 @@
      <rect>
       <x>340</x>
       <y>290</y>
-      <width>37</width>
+      <width>71</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Phone:</string>
@@ -138,6 +164,11 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Add Client</string>
     </property>
@@ -159,7 +190,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

@@ -31,6 +31,9 @@ rentalwindow::~rentalwindow()
 void rentalwindow::on_pushButtonAddRental_clicked()
 {
     addrental *addRentalWin = new addrental(this);
+    connect(addRentalWin, &addrental::rentalAdded, this, [this]() {
+        static_cast<QSqlTableModel*>(ui->tableViewRentals->model())->select();
+    });
     addRentalWin->show();
 }
 

@@ -21,6 +21,9 @@ private slots:
 
 private:
     Ui::addrental *ui;
+
+signals:
+    void rentalAdded();
 };
 
 #endif // ADDRENTAL_H

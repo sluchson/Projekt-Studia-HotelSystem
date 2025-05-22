@@ -23,6 +23,11 @@ roomwindow::roomwindow(QWidget *parent)
     connect(ui->lineEdit_searchRoomNumber, &QLineEdit::textChanged, this, &roomwindow::applyFilters);
     connect(ui->doubleSpinBox_priceFrom, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &roomwindow::applyFilters);
     connect(ui->doubleSpinBox_priceTo, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &roomwindow::applyFilters);
+
+    ui->comboBox_status->addItem("All");
+    ui->comboBox_status->addItem("Available");
+    ui->comboBox_status->addItem("Occupied");
+    connect(ui->comboBox_status, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &roomwindow::applyFilters);
 }
 
 roomwindow::~roomwindow()
@@ -83,23 +88,26 @@ void roomwindow::handleRoomRowClick(const QModelIndex &index)
     roomwindow::displayRoomDetails(this, roomNumber);
 }
 
+
+
+
 void roomwindow::applyFilters()
 {
     QString roomPattern = ui->lineEdit_searchRoomNumber->text().trimmed();
     double priceFrom = ui->doubleSpinBox_priceFrom->value();
     double priceTo = ui->doubleSpinBox_priceTo->value();
+    int statusIndex = ui->comboBox_status->currentIndex(); // 0: Wszystkie, 1: Wolne, 2: Zajęte
 
     QString filter;
 
-    // Filtrowanie po numerze pokoju
+    // Numer pokoju
     if (!roomPattern.isEmpty()) {
         filter += QString("CAST(room_number AS TEXT) ILIKE '%%1%%'").arg(roomPattern);
     }
 
-    // Filtrowanie po cenie
+    // Cena
     if (priceFrom > 0 || priceTo > 0) {
         if (!filter.isEmpty()) filter += " AND ";
-
         if (priceFrom > 0 && priceTo > 0) {
             filter += QString("price_per_night BETWEEN %1 AND %2").arg(priceFrom).arg(priceTo);
         } else if (priceFrom > 0) {
@@ -109,6 +117,16 @@ void roomwindow::applyFilters()
         }
     }
 
+    // Status pokoju
+    if (statusIndex == 1) { // tylko wolne
+        if (!filter.isEmpty()) filter += " AND ";
+        filter += "is_available = true";
+    } else if (statusIndex == 2) { // tylko zajęte
+        if (!filter.isEmpty()) filter += " AND ";
+        filter += "is_available = false";
+    }
+
     QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRooms->model());
     model->setFilter(filter);
 }
+

@@ -15,13 +15,15 @@ public:
     explicit addclient(QWidget *parent = nullptr);
     ~addclient();
 
+private:
+    Ui::addclient *ui;
+
 private slots:
     void on_addButton_clicked();
 
 signals:
     void clientAdded();
-private:
-    Ui::addclient *ui;
+
 };
 
 #endif // ADDCLIENT_H

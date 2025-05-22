@@ -33,10 +33,10 @@ public:
     QPushButton *pushButtonAddRental;
     QPushButton *pushButtonDeleteRental;
     QLineEdit *lineEdit_searchRental;
-    QPushButton *pushButton_searchRental;
     QLabel *labelClients;
     QDateEdit *dateEdit_from;
     QLabel *label_3;
+    QLabel *label_4;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -53,21 +53,24 @@ public:
         pushButtonAddRental = new QPushButton(centralwidget);
         pushButtonAddRental->setObjectName("pushButtonAddRental");
         pushButtonAddRental->setGeometry(QRect(20, 490, 111, 61));
+        QFont font;
+        font.setBold(true);
+        pushButtonAddRental->setFont(font);
         pushButtonDeleteRental = new QPushButton(centralwidget);
         pushButtonDeleteRental->setObjectName("pushButtonDeleteRental");
         pushButtonDeleteRental->setGeometry(QRect(150, 490, 111, 61));
+        pushButtonDeleteRental->setFont(font);
         lineEdit_searchRental = new QLineEdit(centralwidget);
         lineEdit_searchRental->setObjectName("lineEdit_searchRental");
-        lineEdit_searchRental->setGeometry(QRect(280, 30, 251, 31));
-        pushButton_searchRental = new QPushButton(centralwidget);
-        pushButton_searchRental->setObjectName("pushButton_searchRental");
-        pushButton_searchRental->setGeometry(QRect(530, 30, 83, 31));
+        lineEdit_searchRental->setGeometry(QRect(390, 30, 251, 31));
         labelClients = new QLabel(centralwidget);
         labelClients->setObjectName("labelClients");
         labelClients->setGeometry(QRect(20, 10, 181, 41));
-        QFont font;
-        font.setPointSize(24);
-        labelClients->setFont(font);
+        QFont font1;
+        font1.setPointSize(24);
+        font1.setBold(true);
+        font1.setItalic(true);
+        labelClients->setFont(font1);
         dateEdit_from = new QDateEdit(centralwidget);
         dateEdit_from->setObjectName("dateEdit_from");
         dateEdit_from->setGeometry(QRect(650, 30, 110, 25));
@@ -75,10 +78,15 @@ public:
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName("label_3");
         label_3->setGeometry(QRect(650, 10, 49, 16));
+        label_3->setFont(font);
+        label_4 = new QLabel(centralwidget);
+        label_4->setObjectName("label_4");
+        label_4->setGeometry(QRect(390, 10, 181, 16));
+        label_4->setFont(font);
         rentalwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(rentalwindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 25));
         rentalwindow->setMenuBar(menubar);
         statusbar = new QStatusBar(rentalwindow);
         statusbar->setObjectName("statusbar");
@@ -94,9 +102,9 @@ public:
         rentalwindow->setWindowTitle(QCoreApplication::translate("rentalwindow", "MainWindow", nullptr));
         pushButtonAddRental->setText(QCoreApplication::translate("rentalwindow", "Add rental", nullptr));
         pushButtonDeleteRental->setText(QCoreApplication::translate("rentalwindow", "Delete rental", nullptr));
-        pushButton_searchRental->setText(QCoreApplication::translate("rentalwindow", "Search", nullptr));
         labelClients->setText(QCoreApplication::translate("rentalwindow", "RENTALS", nullptr));
         label_3->setText(QCoreApplication::translate("rentalwindow", "From:", nullptr));
+        label_4->setText(QCoreApplication::translate("rentalwindow", "Search by id or client id:", nullptr));
     } // retranslateUi
 
 };

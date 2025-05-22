@@ -29,6 +29,9 @@ clientwindow::~clientwindow()
 void clientwindow::on_pushButtonAddClient_clicked()
 {
     addclient *addClientWin = new addclient(this);
+    connect(addClientWin, &addclient::clientAdded, this, [this]() {
+        static_cast<QSqlTableModel*>(ui->tableViewClients->model())->select();
+    });
     addClientWin->show();
 }
 
@@ -93,7 +96,6 @@ void clientwindow::on_lineEdit_searchClient_textChanged(const QString &text)
 void clientwindow::handleClientRowClick(const QModelIndex &index)
 {
     if (!index.isValid()) return;
-
     QString clientId = ui->tableViewClients->model()->data(ui->tableViewClients->model()->index(index.row(), 0)).toString();
     clientwindow::displayClientDetails(this, clientId);
 }

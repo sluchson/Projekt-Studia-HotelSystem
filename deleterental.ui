@@ -29,13 +29,15 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>271</width>
+      <width>311</width>
       <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>24</pointsize>
+      <italic>true</italic>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -45,7 +47,7 @@
    <widget class="QLineEdit" name="lineEdit_searchRental">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>390</x>
       <y>30</y>
       <width>251</width>
       <height>31</height>
@@ -55,11 +57,47 @@
    <widget class="QDateEdit" name="dateEdit_from">
     <property name="geometry">
      <rect>
-      <x>670</x>
+      <x>660</x>
       <y>30</y>
       <width>110</width>
       <height>25</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>181</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Search by id or client id:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>10</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>From date:</string>
     </property>
    </widget>
   </widget>
@@ -69,7 +107,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
