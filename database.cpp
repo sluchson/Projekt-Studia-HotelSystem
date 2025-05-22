@@ -55,12 +55,7 @@ QSqlTableModel* Database::getRentalsModel() {
     return model;
 }
 
-void Database::refreshExistingModel(QSqlTableModel* model)
-{
-    if (model) {
-        model->select();
-    }
-}
+
 
 
 // Operacje dodawania i usuwania klienta

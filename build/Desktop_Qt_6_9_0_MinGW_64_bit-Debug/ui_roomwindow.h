@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -31,8 +32,8 @@ public:
     QLineEdit *lineEdit_searchRoomNumber;
     QPushButton *pushButton_searchRoom;
     QLabel *labelClients;
-    QPushButton *pushButtonRefresh;
-    QLabel *label;
+    QDoubleSpinBox *doubleSpinBox_priceFrom;
+    QDoubleSpinBox *doubleSpinBox_priceTo;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -58,12 +59,18 @@ public:
         QFont font;
         font.setPointSize(24);
         labelClients->setFont(font);
-        pushButtonRefresh = new QPushButton(centralwidget);
-        pushButtonRefresh->setObjectName("pushButtonRefresh");
-        pushButtonRefresh->setGeometry(QRect(610, 30, 31, 31));
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(280, 10, 101, 16));
+        doubleSpinBox_priceFrom = new QDoubleSpinBox(centralwidget);
+        doubleSpinBox_priceFrom->setObjectName("doubleSpinBox_priceFrom");
+        doubleSpinBox_priceFrom->setGeometry(QRect(660, 70, 101, 25));
+        doubleSpinBox_priceFrom->setDecimals(4);
+        doubleSpinBox_priceFrom->setMaximum(9999.989999999999782);
+        doubleSpinBox_priceFrom->setSingleStep(5.000000000000000);
+        doubleSpinBox_priceTo = new QDoubleSpinBox(centralwidget);
+        doubleSpinBox_priceTo->setObjectName("doubleSpinBox_priceTo");
+        doubleSpinBox_priceTo->setGeometry(QRect(660, 120, 101, 25));
+        doubleSpinBox_priceTo->setDecimals(4);
+        doubleSpinBox_priceTo->setMaximum(9999.989999999999782);
+        doubleSpinBox_priceTo->setSingleStep(5.000000000000000);
         roomwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(roomwindow);
         menubar->setObjectName("menubar");
@@ -83,8 +90,6 @@ public:
         roomwindow->setWindowTitle(QCoreApplication::translate("roomwindow", "MainWindow", nullptr));
         pushButton_searchRoom->setText(QCoreApplication::translate("roomwindow", "Search", nullptr));
         labelClients->setText(QCoreApplication::translate("roomwindow", "ROOMS", nullptr));
-        pushButtonRefresh->setText(QCoreApplication::translate("roomwindow", "\342\231\273\357\270\217", nullptr));
-        label->setText(QCoreApplication::translate("roomwindow", "Search room by id:", nullptr));
     } // retranslateUi
 
 };

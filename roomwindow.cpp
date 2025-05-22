@@ -4,7 +4,9 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 
+
 extern Database db;
+
 
 roomwindow::roomwindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,11 +17,22 @@ roomwindow::roomwindow(QWidget *parent)
 
     connect(ui->tableViewRooms, &QTableView::clicked, this, &roomwindow::handleRoomRowClick);
     ui->tableViewRooms->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableViewRooms->setSortingEnabled(true);
+
+    // Po wpisaniu tekstu do lineEdit
+    connect(ui->lineEdit_searchRoomNumber, &QLineEdit::textChanged, this, &roomwindow::applyFilters);
+    connect(ui->doubleSpinBox_priceFrom, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &roomwindow::applyFilters);
+    connect(ui->doubleSpinBox_priceTo, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &roomwindow::applyFilters);
 }
 
 roomwindow::~roomwindow()
 {
     delete ui;
+}
+
+void roomwindow::refreshRoomTable()
+{
+    static_cast<QSqlTableModel*>(ui->tableViewRooms->model())->select();
 }
 
 void roomwindow::displayRoomDetails(QWidget *parent, const QString& roomNumber)
@@ -62,7 +75,6 @@ void roomwindow::on_pushButton_searchRoom_clicked()
     roomwindow::displayRoomDetails(this, roomNumber);
 }
 
-
 void roomwindow::handleRoomRowClick(const QModelIndex &index)
 {
     if (!index.isValid()) return;
@@ -71,9 +83,32 @@ void roomwindow::handleRoomRowClick(const QModelIndex &index)
     roomwindow::displayRoomDetails(this, roomNumber);
 }
 
-void roomwindow::on_pushButtonRefresh_clicked()
+void roomwindow::applyFilters()
 {
-    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRooms->model());
-    db.refreshExistingModel(model);
-}
+    QString roomPattern = ui->lineEdit_searchRoomNumber->text().trimmed();
+    double priceFrom = ui->doubleSpinBox_priceFrom->value();
+    double priceTo = ui->doubleSpinBox_priceTo->value();
 
+    QString filter;
+
+    // Filtrowanie po numerze pokoju
+    if (!roomPattern.isEmpty()) {
+        filter += QString("CAST(room_number AS TEXT) ILIKE '%%1%%'").arg(roomPattern);
+    }
+
+    // Filtrowanie po cenie
+    if (priceFrom > 0 || priceTo > 0) {
+        if (!filter.isEmpty()) filter += " AND ";
+
+        if (priceFrom > 0 && priceTo > 0) {
+            filter += QString("price_per_night BETWEEN %1 AND %2").arg(priceFrom).arg(priceTo);
+        } else if (priceFrom > 0) {
+            filter += QString("price_per_night >= %1").arg(priceFrom);
+        } else if (priceTo > 0) {
+            filter += QString("price_per_night <= %1").arg(priceTo);
+        }
+    }
+
+    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRooms->model());
+    model->setFilter(filter);
+}

@@ -39,23 +39,26 @@ template <> constexpr inline auto deleteclient::qt_create_metaobjectdata<qt_meta
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "deleteclient",
-        "handleRowClick",
+        "clientDeleted",
         "",
+        "handleRowClick",
         "QModelIndex",
         "index",
-        "on_pushButton_searchClient_clicked",
-        "on_pushButtonRefresh_clicked"
+        "on_lineEdit_searchClient_textChanged",
+        "text"
     };
 
     QtMocHelpers::UintData qt_methods {
+        // Signal 'clientDeleted'
+        QtMocHelpers::SignalData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'handleRowClick'
-        QtMocHelpers::SlotData<void(const QModelIndex &)>(1, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 3, 4 },
+        QtMocHelpers::SlotData<void(const QModelIndex &)>(3, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 4, 5 },
         }}),
-        // Slot 'on_pushButton_searchClient_clicked'
-        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'on_pushButtonRefresh_clicked'
-        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'on_lineEdit_searchClient_textChanged'
+        QtMocHelpers::SlotData<void(const QString &)>(6, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QString, 7 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -79,11 +82,15 @@ void deleteclient::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     auto *_t = static_cast<deleteclient *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->handleRowClick((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
-        case 1: _t->on_pushButton_searchClient_clicked(); break;
-        case 2: _t->on_pushButtonRefresh_clicked(); break;
+        case 0: _t->clientDeleted(); break;
+        case 1: _t->handleRowClick((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
+        case 2: _t->on_lineEdit_searchClient_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
         }
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (deleteclient::*)()>(_a, &deleteclient::clientDeleted, 0))
+            return;
     }
 }
 
@@ -116,5 +123,11 @@ int deleteclient::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 3;
     }
     return _id;
+}
+
+// SIGNAL 0
+void deleteclient::clientDeleted()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 QT_WARNING_POP

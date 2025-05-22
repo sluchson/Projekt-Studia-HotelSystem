@@ -42,53 +42,14 @@
      <string>DELETE CLIENT</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_searchClientId">
+   <widget class="QLineEdit" name="lineEdit_searchClient">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>360</x>
       <y>30</y>
       <width>251</width>
       <height>31</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_searchClient">
-    <property name="geometry">
-     <rect>
-      <x>530</x>
-      <y>30</y>
-      <width>80</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonRefresh">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>30</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>♻️</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>10</y>
-      <width>161</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search and delete client by id:</string>
     </property>
    </widget>
   </widget>

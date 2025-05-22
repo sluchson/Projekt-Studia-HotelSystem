@@ -43,6 +43,7 @@ public:
         if (addclient->objectName().isEmpty())
             addclient->setObjectName("addclient");
         addclient->resize(800, 600);
+        addclient->setAutoFillBackground(false);
         centralwidget = new QWidget(addclient);
         centralwidget->setObjectName("centralwidget");
         labelClients = new QLabel(centralwidget);

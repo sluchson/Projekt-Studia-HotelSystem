@@ -23,11 +23,14 @@ addrental::addrental(QWidget *parent)
     }
 
     // Załaduj dostępne pokoje
-    QSqlQuery roomsQuery("SELECT room_number FROM rooms WHERE is_available = true");
+    QSqlQuery roomsQuery("SELECT room_number, price_per_night FROM rooms WHERE is_available = true");
     while (roomsQuery.next()) {
         int roomNumber = roomsQuery.value("room_number").toInt();
-        ui->comboBox_room->addItem(QString::number(roomNumber), roomNumber);
+        double price = roomsQuery.value("price_per_night").toDouble();
+        QString displayText = QString("%1 – %2 zł/night").arg(roomNumber).arg(price, 0, 'f', 2);
+        ui->comboBox_room->addItem(displayText, roomNumber);
     }
+
 
     // Automatyczna aktualizacja ceny przy zmianie pokoju lub dat
     connect(ui->comboBox_room, &QComboBox::currentIndexChanged, this, &addrental::updateTotalPrice);
@@ -36,6 +39,8 @@ addrental::addrental(QWidget *parent)
 
     // Zablokuj możliwość edycji ceny
     ui->lineEdit_price->setReadOnly(true);
+    ui->dateEdit_checkin->setDate(QDate::currentDate());
+    ui->dateEdit_checkout->setDate(QDate::currentDate());
 }
 
 addrental::~addrental()
@@ -72,13 +77,22 @@ void addrental::updateTotalPrice() {
 void addrental::on_pushButton_add_rental_clicked()
 {
     // Tworzenie wypożyczenia na podstawie pól formularza
+    QDate checkIn = ui->dateEdit_checkin->date();
+    QDate checkOut = ui->dateEdit_checkout->date();
+
+    if (checkIn >= checkOut) {
+        QMessageBox::warning(this, "Błąd", "Data zameldowania musi być wcześniejsza niż data wymeldowania.");
+        return;
+    }
+
     Rental rental(
         ui->comboBox_client->currentData().toInt(),
         ui->comboBox_room->currentData().toInt(),
-        ui->dateEdit_checkin->date(),
-        ui->dateEdit_checkout->date(),
+        checkIn,
+        checkOut,
         ui->lineEdit_price->text().toDouble()
         );
+
 
     if (db.addRental(rental)) {
         QMessageBox::information(this, "Sukces", "Dodano wypożyczenie");

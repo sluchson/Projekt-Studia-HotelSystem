@@ -17,6 +17,7 @@ clientwindow::clientwindow(QWidget *parent)
 
     connect(ui->tableViewClients, &QTableView::clicked, this, &clientwindow::handleClientRowClick);
     ui->tableViewClients->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableViewClients->setSortingEnabled(true);
 
 }
 
@@ -35,8 +36,12 @@ void clientwindow::on_pushButtonAddClient_clicked()
 void clientwindow::on_pushButtonDeleteClient_clicked()
 {
     deleteclient *deleteClientWin = new deleteclient(this);
+    connect(deleteClientWin, &deleteclient::clientDeleted, this, [this]() {
+        static_cast<QSqlTableModel*>(ui->tableViewClients->model())->select();
+    });
     deleteClientWin->show();
 }
+
 
 
 void clientwindow::displayClientDetails(QWidget *parent, const QString& clientId)
@@ -69,16 +74,20 @@ void clientwindow::displayClientDetails(QWidget *parent, const QString& clientId
 }
 
 
-void clientwindow::on_pushButton_searchClient_clicked()
+void clientwindow::on_lineEdit_searchClient_textChanged(const QString &text)
 {
-    QString clientId = ui->lineEdit_searchClientId->text().trimmed();
-    if (clientId.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wprowadź ID klienta do wyszukania.");
-        return;
-    }
+    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewClients->model());
 
-    clientwindow::displayClientDetails(this, clientId);
+    QString pattern = text.trimmed();
+    if (pattern.isEmpty()) {
+        model->setFilter("");  // Pokaż wszystkich
+    } else {
+        model->setFilter(QString(
+                             "first_name ILIKE '%%1%' OR last_name ILIKE '%%1%'"
+                             ).arg(pattern));
+    }
 }
+
 
 
 void clientwindow::handleClientRowClick(const QModelIndex &index)
@@ -87,11 +96,5 @@ void clientwindow::handleClientRowClick(const QModelIndex &index)
 
     QString clientId = ui->tableViewClients->model()->data(ui->tableViewClients->model()->index(index.row(), 0)).toString();
     clientwindow::displayClientDetails(this, clientId);
-}
-
-void clientwindow::on_pushButtonRefresh_clicked()
-{
-    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewClients->model());
-    db.refreshExistingModel(model);
 }
 

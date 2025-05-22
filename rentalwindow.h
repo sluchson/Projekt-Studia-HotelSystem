@@ -25,10 +25,14 @@ private slots:
 
     void on_pushButtonDeleteRental_clicked();
 
-    void on_pushButton_searchRental_clicked();
+    void on_lineEdit_searchRental_textChanged(const QString &text);
+
+    void on_dateEdit_from_dateChanged(const QDate &date);
+
+    void applyCombinedFilter();
 
     void handleRentalRowClick(const QModelIndex &index);
 
-    void on_pushButtonRefresh_clicked();
+
 };
 #endif // RENTALWINDOW_H

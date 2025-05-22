@@ -33,7 +33,7 @@ public:
 
     QString searchRecord(const QString& table, const QString& column, const QString& value);
 
-    void refreshExistingModel(QSqlTableModel* model);
+    //void refreshExistingModel(QSqlTableModel* model);
 
 
 private:

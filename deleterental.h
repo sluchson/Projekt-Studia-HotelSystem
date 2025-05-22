@@ -15,19 +15,22 @@ class deleterental : public QMainWindow
 public:
     explicit deleterental(QWidget *parent = nullptr);
     ~deleterental();
+    bool deleteRentalById(const QString& rentalId);
+
 
 private:
     Ui::deleterental *ui;
     QSqlTableModel *rentalsModel;
-    bool deleteRentalById(const QString& rentalId);
 
 private slots:
     void handleRowClick(const QModelIndex &index);
 
-    void on_pushButton_searchRental_clicked();
+    void applyCombinedFilter();
+    void on_lineEdit_searchRental_textChanged(const QString &);
+    void on_dateEdit_from_dateChanged(const QDate &);
 
-
-    void on_pushButtonRefresh_clicked();
+signals:
+    void rentalDeleted();  // sygnał informujący o usunięciu klienta
 };
 
 #endif // DELETERENTAL_H

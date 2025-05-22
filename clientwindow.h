@@ -21,11 +21,10 @@ private slots:
 
     void on_pushButtonDeleteClient_clicked();
 
-    void on_pushButton_searchClient_clicked();
+    void on_lineEdit_searchClient_textChanged(const QString &text);
 
     void handleClientRowClick(const QModelIndex &index);
 
-    void on_pushButtonRefresh_clicked();
 
 private:
     Ui::clientwindow *ui;

@@ -23,9 +23,11 @@ private:
 
 private slots:
     void handleRowClick(const QModelIndex &index);
-    void on_pushButton_searchClient_clicked();
+    void on_lineEdit_searchClient_textChanged(const QString &text);
 
-    void on_pushButtonRefresh_clicked();
+signals:
+    void clientDeleted();  // sygnał informujący o usunięciu klienta
+
 };
 
 #endif // DELETECLIENT_H

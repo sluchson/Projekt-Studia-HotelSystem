@@ -42,11 +42,14 @@ template <> constexpr inline auto rentalwindow::qt_create_metaobjectdata<qt_meta
         "on_pushButtonAddRental_clicked",
         "",
         "on_pushButtonDeleteRental_clicked",
-        "on_pushButton_searchRental_clicked",
+        "on_lineEdit_searchRental_textChanged",
+        "text",
+        "on_dateEdit_from_dateChanged",
+        "date",
+        "applyCombinedFilter",
         "handleRentalRowClick",
         "QModelIndex",
-        "index",
-        "on_pushButtonRefresh_clicked"
+        "index"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -54,14 +57,20 @@ template <> constexpr inline auto rentalwindow::qt_create_metaobjectdata<qt_meta
         QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'on_pushButtonDeleteRental_clicked'
         QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'on_pushButton_searchRental_clicked'
-        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'handleRentalRowClick'
-        QtMocHelpers::SlotData<void(const QModelIndex &)>(5, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 6, 7 },
+        // Slot 'on_lineEdit_searchRental_textChanged'
+        QtMocHelpers::SlotData<void(const QString &)>(4, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QString, 5 },
         }}),
-        // Slot 'on_pushButtonRefresh_clicked'
+        // Slot 'on_dateEdit_from_dateChanged'
+        QtMocHelpers::SlotData<void(const QDate &)>(6, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::QDate, 7 },
+        }}),
+        // Slot 'applyCombinedFilter'
         QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'handleRentalRowClick'
+        QtMocHelpers::SlotData<void(const QModelIndex &)>(9, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 10, 11 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -87,9 +96,10 @@ void rentalwindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->on_pushButtonAddRental_clicked(); break;
         case 1: _t->on_pushButtonDeleteRental_clicked(); break;
-        case 2: _t->on_pushButton_searchRental_clicked(); break;
-        case 3: _t->handleRentalRowClick((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
-        case 4: _t->on_pushButtonRefresh_clicked(); break;
+        case 2: _t->on_lineEdit_searchRental_textChanged((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 3: _t->on_dateEdit_from_dateChanged((*reinterpret_cast< std::add_pointer_t<QDate>>(_a[1]))); break;
+        case 4: _t->applyCombinedFilter(); break;
+        case 5: _t->handleRentalRowClick((*reinterpret_cast< std::add_pointer_t<QModelIndex>>(_a[1]))); break;
         default: ;
         }
     }
@@ -114,14 +124,14 @@ int rentalwindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

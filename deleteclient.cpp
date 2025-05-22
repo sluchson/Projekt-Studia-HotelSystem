@@ -2,6 +2,7 @@
 #include "ui_deleteclient.h"
 #include "database.h"
 #include "clientwindow.h"
+#include "deleterental.h"
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -16,6 +17,7 @@ deleteclient::deleteclient(QWidget *parent)
     clientsModel = db.getClientsModel();
     ui->tableViewClientToDelete->setModel(clientsModel);
     connect(ui->tableViewClientToDelete, &QTableView::clicked, this, &deleteclient::handleRowClick);
+    ui->tableViewClientToDelete->setSortingEnabled(true);
 }
 
 deleteclient::~deleteclient()
@@ -25,12 +27,18 @@ deleteclient::~deleteclient()
 
 bool deleteclient::deleteClientById(const QString& clientId)
 {
-    // Usuń wypożyczenia
-    QSqlQuery deleteRentals;
-    deleteRentals.prepare("DELETE FROM rentals WHERE client_id = :client_id");
-    deleteRentals.bindValue(":client_id", clientId);
-    if (!deleteRentals.exec()) {
-        QMessageBox::warning(this, "Błąd", "Nie udało się usunąć wypożyczeń:\n" + deleteRentals.lastError().text());
+    // Usuń wypożyczenia klienta z użyciem deleterental
+    QSqlQuery getRentals;
+    getRentals.prepare("SELECT rental_id FROM rentals WHERE client_id = :client_id");
+    getRentals.bindValue(":client_id", clientId);
+    if (getRentals.exec()) {
+        deleterental rentalDeleter; // tymczasowy obiekt do wywołania funkcji
+        while (getRentals.next()) {
+            QString rentalId = getRentals.value(0).toString();
+            rentalDeleter.deleteRentalById(rentalId);
+        }
+    } else {
+        QMessageBox::warning(this, "Błąd", "Nie udało się pobrać wypożyczeń klienta:\n" + getRentals.lastError().text());
         return false;
     }
 
@@ -57,6 +65,7 @@ bool deleteclient::deleteClientById(const QString& clientId)
     return false;
 }
 
+
 void deleteclient::handleRowClick(const QModelIndex &index)
 {
     if (!index.isValid()) return;
@@ -73,39 +82,28 @@ void deleteclient::handleRowClick(const QModelIndex &index)
     if (reply == QMessageBox::Yes) {
         if (deleteClientById(clientId)) {
             QMessageBox::information(this, "Sukces", "Klient i jego wypożyczenia zostali usunięci.");
+            static_cast<QSqlTableModel*>(ui->tableViewClientToDelete->model())->select();
+            emit clientDeleted();  // powiadomienie o zmianie
         }
     }
 }
 
-void deleteclient::on_pushButton_searchClient_clicked()
-{
-    QString clientId = ui->lineEdit_searchClientId->text().trimmed();
-    if (clientId.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wprowadź ID klienta do wyszukania.");
-        return;
-    }
 
-    // Wyświetlenie danych klienta i jego wypożyczeń
-    clientwindow::displayClientDetails(this, clientId);
 
-    // Potwierdzenie usunięcia
-    QMessageBox::StandardButton reply = QMessageBox::question(
-        this,
-        "Potwierdzenie usunięcia",
-        "Czy chcesz usunąć tego klienta?",
-        QMessageBox::Yes | QMessageBox::No
-        );
-
-    if (reply == QMessageBox::Yes) {
-        if (deleteClientById(clientId)) {
-            QMessageBox::information(this, "Sukces", "Klient i jego wypożyczenia zostali usunięci.");
-        }
-    }
-}
-
-void deleteclient::on_pushButtonRefresh_clicked()
+void deleteclient::on_lineEdit_searchClient_textChanged(const QString &text)
 {
     QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewClientToDelete->model());
-    db.refreshExistingModel(model);
+
+    QString pattern = text.trimmed();
+    if (pattern.isEmpty()) {
+        model->setFilter("");  // Pokaż wszystkich
+    } else {
+        model->setFilter(QString(
+                             "first_name ILIKE '%%1%%' OR last_name ILIKE '%%1%%'"
+                             ).arg(pattern));
+    }
 }
+
+
+
 

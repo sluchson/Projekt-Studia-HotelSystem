@@ -42,53 +42,24 @@
      <string>DELETE RENTAL</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_searchRentalId">
+   <widget class="QLineEdit" name="lineEdit_searchRental">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>360</x>
       <y>30</y>
       <width>251</width>
       <height>31</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_searchRental">
+   <widget class="QDateEdit" name="dateEdit_from">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>670</x>
       <y>30</y>
-      <width>80</width>
-      <height>31</height>
+      <width>110</width>
+      <height>25</height>
      </rect>
-    </property>
-    <property name="text">
-     <string>Search</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButtonRefresh">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>30</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>♻️</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>10</y>
-      <width>161</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Search and delete rental by id:</string>
     </property>
    </widget>
   </widget>

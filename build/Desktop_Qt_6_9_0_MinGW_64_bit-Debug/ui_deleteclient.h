@@ -16,7 +16,6 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
@@ -29,10 +28,7 @@ public:
     QWidget *centralwidget;
     QTableView *tableViewClientToDelete;
     QLabel *labelClients;
-    QLineEdit *lineEdit_searchClientId;
-    QPushButton *pushButton_searchClient;
-    QPushButton *pushButtonRefresh;
-    QLabel *label;
+    QLineEdit *lineEdit_searchClient;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -52,18 +48,9 @@ public:
         QFont font;
         font.setPointSize(24);
         labelClients->setFont(font);
-        lineEdit_searchClientId = new QLineEdit(centralwidget);
-        lineEdit_searchClientId->setObjectName("lineEdit_searchClientId");
-        lineEdit_searchClientId->setGeometry(QRect(280, 30, 251, 31));
-        pushButton_searchClient = new QPushButton(centralwidget);
-        pushButton_searchClient->setObjectName("pushButton_searchClient");
-        pushButton_searchClient->setGeometry(QRect(530, 30, 80, 31));
-        pushButtonRefresh = new QPushButton(centralwidget);
-        pushButtonRefresh->setObjectName("pushButtonRefresh");
-        pushButtonRefresh->setGeometry(QRect(610, 30, 31, 31));
-        label = new QLabel(centralwidget);
-        label->setObjectName("label");
-        label->setGeometry(QRect(280, 10, 161, 16));
+        lineEdit_searchClient = new QLineEdit(centralwidget);
+        lineEdit_searchClient->setObjectName("lineEdit_searchClient");
+        lineEdit_searchClient->setGeometry(QRect(360, 30, 251, 31));
         deleteclient->setCentralWidget(centralwidget);
         menubar = new QMenuBar(deleteclient);
         menubar->setObjectName("menubar");
@@ -82,9 +69,6 @@ public:
     {
         deleteclient->setWindowTitle(QCoreApplication::translate("deleteclient", "MainWindow", nullptr));
         labelClients->setText(QCoreApplication::translate("deleteclient", "DELETE CLIENT", nullptr));
-        pushButton_searchClient->setText(QCoreApplication::translate("deleteclient", "Search", nullptr));
-        pushButtonRefresh->setText(QCoreApplication::translate("deleteclient", "\342\231\273\357\270\217", nullptr));
-        label->setText(QCoreApplication::translate("deleteclient", "Search and delete client by id:", nullptr));
     } // retranslateUi
 
 };

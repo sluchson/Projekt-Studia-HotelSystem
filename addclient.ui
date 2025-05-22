@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Add Client</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="labelClients">
     <property name="geometry">

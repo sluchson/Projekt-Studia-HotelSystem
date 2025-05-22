@@ -18,6 +18,9 @@ rentalwindow::rentalwindow(QWidget *parent)
 
     connect(ui->tableViewRentals, &QTableView::clicked, this, &rentalwindow::handleRentalRowClick);
     ui->tableViewRentals->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableViewRentals->setSortingEnabled(true);
+    ui->dateEdit_from->setDate(QDate::currentDate().addYears(-1));
+
 }
 
 rentalwindow::~rentalwindow()
@@ -35,6 +38,10 @@ void rentalwindow::on_pushButtonAddRental_clicked()
 void rentalwindow::on_pushButtonDeleteRental_clicked()
 {
     deleterental *deleteRentalWin = new deleterental(this);
+    connect(deleteRentalWin, &deleterental::rentalDeleted, this, [this]()
+    {
+        static_cast<QSqlTableModel*>(ui->tableViewRentals->model())->select();
+    });
     deleteRentalWin->show();
 }
 
@@ -69,11 +76,41 @@ void rentalwindow::displayRentalDetails(QWidget *parent, const QString& rentalId
 }
 
 
-void rentalwindow::on_pushButton_searchRental_clicked()
+
+void rentalwindow::applyCombinedFilter()
 {
-    QString rentalId = ui->lineEdit_searchRentalId->text().trimmed();
-    rentalwindow::displayRentalDetails(this, rentalId);
+    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRentals->model());
+
+    QString pattern = ui->lineEdit_searchRental->text().trimmed();
+    QDate from = ui->dateEdit_from->date();
+
+    QString textFilter;
+    if (!pattern.isEmpty()) {
+        textFilter = QString(
+                         "(CAST(rental_id AS TEXT) ILIKE '%%1%%' OR "
+                         "CAST(client_id AS TEXT) ILIKE '%%1%%' OR "
+                         "CAST(room_number AS TEXT) ILIKE '%%1%%')"
+                         ).arg(pattern);
+    }
+
+    QString dateFilter = QString("check_in_date >= '%1'")
+                             .arg(from.toString("yyyy-MM-dd"));
+
+    QString finalFilter = textFilter.isEmpty() ? dateFilter : dateFilter + " AND " + textFilter;
+    model->setFilter(finalFilter);
 }
+
+void rentalwindow::on_lineEdit_searchRental_textChanged(const QString &)
+{
+    applyCombinedFilter();
+}
+
+void rentalwindow::on_dateEdit_from_dateChanged(const QDate &)
+{
+    applyCombinedFilter();
+}
+
+
 
 void rentalwindow::handleRentalRowClick(const QModelIndex &index)
 {
@@ -81,11 +118,5 @@ void rentalwindow::handleRentalRowClick(const QModelIndex &index)
 
     QString rentalId = ui->tableViewRentals->model()->data(ui->tableViewRentals->model()->index(index.row(), 0)).toString();
     rentalwindow::displayRentalDetails(this, rentalId);
-}
-
-void rentalwindow::on_pushButtonRefresh_clicked()
-{
-    QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRentals->model());
-    db.refreshExistingModel(model);
 }
 

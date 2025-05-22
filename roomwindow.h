@@ -15,16 +15,16 @@ public:
     explicit roomwindow(QWidget *parent = nullptr);
     ~roomwindow();
     static void displayRoomDetails(QWidget *parent, const QString& roomNumber);
+    void refreshRoomTable();
 
 private:
     Ui::roomwindow *ui;
+    void applyFilters();
 
 private slots:
     void on_pushButton_searchRoom_clicked();
     void handleRoomRowClick(const QModelIndex &index);
 
-
-    void on_pushButtonRefresh_clicked();
 };
 
 #endif // ROOMWINDOW_H
