@@ -54,7 +54,7 @@ public:
         QFont font;
         font.setPointSize(24);
         font.setBold(true);
-        font.setItalic(true);
+        font.setItalic(false);
         labelClients->setFont(font);
         pushButtonAddClient = new QPushButton(centralwidget);
         pushButtonAddClient->setObjectName("pushButtonAddClient");
@@ -76,7 +76,7 @@ public:
         clientwindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(clientwindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 21));
         clientwindow->setMenuBar(menubar);
         statusbar = new QStatusBar(clientwindow);
         statusbar->setObjectName("statusbar");

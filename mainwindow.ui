@@ -32,6 +32,11 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Clients</string>
     </property>
@@ -44,6 +49,11 @@
       <width>111</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="text">
      <string>Rooms</string>
@@ -58,6 +68,11 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
      <string>Rentals</string>
     </property>
@@ -65,22 +80,41 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>200</x>
       <y>110</y>
-      <width>581</width>
+      <width>411</width>
       <height>111</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Ravie</family>
+      <family>Segoe UI</family>
       <pointsize>48</pointsize>
       <italic>false</italic>
-      <underline>false</underline>
+      <bold>true</bold>
+      <underline>true</underline>
      </font>
     </property>
     <property name="text">
      <string>Hotel System</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>220</y>
+      <width>161</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Maciej Pereślucha -177139</string>
     </property>
    </widget>
   </widget>
@@ -90,7 +124,7 @@
      <x>0</x>
      <y>0</y>
      <width>801</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "database.h"  // Dodajemy zależność do klasy DatabaseManager
+#include "database.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

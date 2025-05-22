@@ -19,56 +19,56 @@ addclient::~addclient()
     delete ui;
 }
 
-
+// funkcja wywolywana po kliknieciu przycisku dodaj
 void addclient::on_addButton_clicked()
 {
+    // pobieranie danych z pol tekstowych
     QString first_name = ui->firstNameEdit->text().trimmed();
     QString last_name = ui->lastNameEdit->text().trimmed();
     QString email = ui->emailEdit->text().trimmed();
     QString phone = ui->phoneEdit->text().trimmed();
 
-    // 1. Sprawdź czy pola są puste
+    // sprawdz czy wszystkie pola sa wypelnione
     if (first_name.isEmpty() || last_name.isEmpty() || email.isEmpty() || phone.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wszystkie pola muszą być wypełnione.");
+        QMessageBox::warning(this, "Error", "All fields must be filled in.");
         return;
     }
 
+    // walidacja imienia (wielka litera, tylko litery)
     QRegularExpression nameRegex(R"(^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+$)");
     if (!nameRegex.match(first_name).hasMatch()) {
-        QMessageBox::warning(this, "Błąd", "Imię musi zaczynać się wielką literą i zawierać tylko litery.");
+        QMessageBox::warning(this, "Error", "The first name must start with a capital letter and contain only letters.");
         return;
     }
 
+    // walidacja nazwiska (wielka litera, tylko litery, dopuszcza podwojne nazwiska)
     QRegularExpression lastnameRegex(R"(^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+(-[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźż]+)?$)");
     if (!lastnameRegex.match(last_name).hasMatch()) {
-        QMessageBox::warning(this, "Błąd", "Nazwisko musi zaczynać się wielką literą i zawierać tylko litery.");
+        QMessageBox::warning(this, "Error", "The last name must start with a capital letter and contain only letters.");
         return;
     }
 
-
-    // 2. Walidacja e-maila
+    // walidacja adresu e-mail
     QRegularExpression emailRegex(R"(^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$)");
     if (!emailRegex.match(email).hasMatch()) {
-        QMessageBox::warning(this, "Błąd", "Podaj poprawny adres e-mail.");
+        QMessageBox::warning(this, "Error", "Please enter a valid email address.");
         return;
     }
 
-    // 3. Walidacja telefonu (minimum 9 cyfr, tylko cyfry, można rozwinąć)
+    // walidacja numeru telefonu (min 9 cyfr, tylko cyfry)
     QRegularExpression phoneRegex(R"(^\d{9,}$)");
     if (!phoneRegex.match(phone).hasMatch()) {
-        QMessageBox::warning(this, "Błąd", "Numer telefonu powinien zawierać co najmniej 9 cyfr.");
+        QMessageBox::warning(this, "Error", "The phone number should contain at least 9 digits.");
         return;
     }
 
-    // Możesz tu dodać inne walidacje, np. na wielkość liter w imieniu/nazwisku
-
-    // 4. Dodawanie klienta
+    // dodanie klienta do bazy danych
     Client newClient(first_name, last_name, email, phone);
     if (db.addClient(newClient)) {
-        QMessageBox::information(this, "Sukces", "Dodano klienta.");
+        QMessageBox::information(this, "Success", "Client added.");
         emit clientAdded();
         this->close();
     } else {
-        QMessageBox::critical(this, "Błąd", "Nie udało się dodać klienta.");
+        QMessageBox::critical(this, "Error", "Failed to add the client.");
     }
 }

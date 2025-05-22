@@ -3,6 +3,10 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
+#include <QList>
+#include <QPair>
+#include <QDate>
+
 #include <QSqlDatabase>
 #include <QSqlTableModel>
 #include "client.h"
@@ -33,8 +37,9 @@ public:
 
     QString searchRecord(const QString& table, const QString& column, const QString& value);
 
-    //void refreshExistingModel(QSqlTableModel* model);
+    void updateRoomsAvailability();
 
+    QList<QPair<QDate, QDate>> getReservedRangesForRoom(int roomNumber); 
 
 private:
     QSqlDatabase db;

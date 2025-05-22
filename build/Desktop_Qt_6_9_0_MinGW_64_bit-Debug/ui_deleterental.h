@@ -52,14 +52,14 @@ public:
         QFont font;
         font.setPointSize(24);
         font.setBold(true);
-        font.setItalic(true);
+        font.setItalic(false);
         labelClients->setFont(font);
         lineEdit_searchRental = new QLineEdit(centralwidget);
         lineEdit_searchRental->setObjectName("lineEdit_searchRental");
         lineEdit_searchRental->setGeometry(QRect(390, 30, 251, 31));
         dateEdit_from = new QDateEdit(centralwidget);
         dateEdit_from->setObjectName("dateEdit_from");
-        dateEdit_from->setGeometry(QRect(660, 30, 110, 25));
+        dateEdit_from->setGeometry(QRect(660, 30, 110, 31));
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName("label_4");
         label_4->setGeometry(QRect(390, 10, 181, 16));
@@ -73,7 +73,7 @@ public:
         deleterental->setCentralWidget(centralwidget);
         menubar = new QMenuBar(deleterental);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 21));
         deleterental->setMenuBar(menubar);
         statusbar = new QStatusBar(deleterental);
         statusbar->setObjectName("statusbar");

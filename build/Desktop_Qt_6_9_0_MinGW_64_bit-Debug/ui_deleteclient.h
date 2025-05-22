@@ -49,7 +49,7 @@ public:
         QFont font;
         font.setPointSize(24);
         font.setBold(true);
-        font.setItalic(true);
+        font.setItalic(false);
         labelClients->setFont(font);
         lineEdit_searchClient = new QLineEdit(centralwidget);
         lineEdit_searchClient->setObjectName("lineEdit_searchClient");
@@ -63,7 +63,7 @@ public:
         deleteclient->setCentralWidget(centralwidget);
         menubar = new QMenuBar(deleteclient);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 21));
         deleteclient->setMenuBar(menubar);
         statusbar = new QStatusBar(deleteclient);
         statusbar->setObjectName("statusbar");

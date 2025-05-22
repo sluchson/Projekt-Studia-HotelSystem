@@ -36,7 +36,7 @@
     <property name="font">
      <font>
       <pointsize>24</pointsize>
-      <italic>true</italic>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -60,7 +60,7 @@
       <x>660</x>
       <y>30</y>
       <width>110</width>
-      <height>25</height>
+      <height>31</height>
      </rect>
     </property>
    </widget>
@@ -107,7 +107,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

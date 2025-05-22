@@ -1,28 +1,8 @@
 #include "rental.h"
 
-Rental::Rental(int rentalId, int clientId, int roomNumber,
-               const QDate &checkInDate,
-               const QDate &checkOutDate, double totalPrice)
-    : rentalId(rentalId),
-    clientId(clientId),
-    roomNumber(roomNumber),
-    checkInDate(checkInDate),
-    checkOutDate(checkOutDate),
-    totalPrice(totalPrice)
-{
-}
-
-Rental::Rental(int clientId, int roomNumber,
-               const QDate &checkInDate,
-               const QDate &checkOutDate, double totalPrice)
-    : clientId(clientId),
-    roomNumber(roomNumber),
-    checkInDate(checkInDate),
-    checkOutDate(checkOutDate),
-    totalPrice(totalPrice)
-{
-}
-
+Rental::Rental(int clientId, int roomNumber, const QDate &checkInDate, const QDate &checkOutDate, double totalPrice)
+    : clientId(clientId), roomNumber(roomNumber), checkInDate(checkInDate), checkOutDate(checkOutDate),totalPrice(totalPrice)
+{}
 
 int Rental::getRentalId() const
 {

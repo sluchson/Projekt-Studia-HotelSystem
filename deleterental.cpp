@@ -15,8 +15,10 @@ deleterental::deleterental(QWidget *parent)
     rentalsModel = db.getRentalsModel();
     ui->tableViewRentalToDelete->setModel(rentalsModel);
 
+    // laczymy klikniecie z obsluga usuwania
     connect(ui->tableViewRentalToDelete, &QTableView::clicked, this, &deleterental::handleRowClick);
     ui->tableViewRentalToDelete->setSortingEnabled(true);
+    // domyslna data od ktorej wyswietlane sa wyniki
     ui->dateEdit_from->setDate(QDate::currentDate().addYears(-1));
 }
 
@@ -25,7 +27,7 @@ deleterental::~deleterental()
     delete ui;
 }
 
-
+// usuwa wypozyczenie o podanym id, aktualizuje status pokoju
 bool deleterental::deleteRentalById(const QString& rentalId)
 {
     QString roomNumber;
@@ -35,68 +37,60 @@ bool deleterental::deleteRentalById(const QString& rentalId)
     if (getRoomQuery.exec() && getRoomQuery.next()) {
         roomNumber = getRoomQuery.value(0).toString();
     } else {
-        QMessageBox::warning(this, "Błąd", "Nie udało się znaleźć pokoju dla danego wypożyczenia.");
+        QMessageBox::warning(this, "Error", "Could not find the room for the selected rental.");
         return false;
     }
 
-    // Teraz usuń wypożyczenie z modelu
+    // szukamy wypozyczenia w modelu i usuwamy je
     for (int row = 0; row < rentalsModel->rowCount(); ++row) {
         QString modelRentalId = rentalsModel->data(rentalsModel->index(row, 0)).toString();
         if (modelRentalId == rentalId) {
             if (!rentalsModel->removeRow(row)) {
-                QMessageBox::warning(this, "Błąd", "Nie udało się usunąć wypożyczenia.");
+                QMessageBox::warning(this, "Error", "Could not delete rental.");
                 return false;
             }
 
             if (!rentalsModel->submitAll()) {
-                QMessageBox::warning(this, "Błąd", "Nie udało się zapisać zmian:\n" + rentalsModel->lastError().text());
+                QMessageBox::warning(this, "Error", "Could not save changes:\n" + rentalsModel->lastError().text());
                 rentalsModel->revertAll();
                 return false;
             }
 
-            // Zaktualizuj dostępność pokoju na true
-            QSqlQuery updateRoomQuery;
-            updateRoomQuery.prepare("UPDATE rooms SET is_available = true WHERE room_number = :room_number");
-            updateRoomQuery.bindValue(":room_number", roomNumber);
-            if (!updateRoomQuery.exec()) {
-                QMessageBox::warning(this, "Błąd", "Nie udało się zaktualizować statusu pokoju:\n" + updateRoomQuery.lastError().text());
-                return false;
-            }
+            // po usunieciu wywolujemy globalna aktualizacje dostepnosci pokoi
+            db.updateRoomsAvailability();
 
             return true;
         }
     }
 
-    QMessageBox::warning(this, "Błąd", "Nie znaleziono wypożyczenia o podanym ID.");
+    QMessageBox::warning(this, "Error", "Rental not found in model.");
     return false;
 }
 
-
-
+// obsluga klikniecia wiersza, pyta o potwierdzenie i usuwa
 void deleterental::handleRowClick(const QModelIndex &index)
 {
     if (!index.isValid()) return;
 
-    QString rentalId = rentalsModel->data(rentalsModel->index(index.row(), 0)).toString(); // kol. 0 = rental_id
+    QString rentalId = rentalsModel->data(rentalsModel->index(index.row(), 0)).toString();
 
     QMessageBox::StandardButton reply = QMessageBox::question(
         this,
-        "Potwierdzenie",
-        QString("Czy na pewno chcesz usunąć wypożyczenie #%1?").arg(rentalId),
+        "Confirmation",
+        QString("Are you sure you want to delete rental #%1?").arg(rentalId),
         QMessageBox::Yes | QMessageBox::No
         );
 
     if (reply == QMessageBox::Yes) {
         if (deleteRentalById(rentalId)) {
-            QMessageBox::information(this, "Sukces", "Wypożyczenie zostało usunięte.");
+            QMessageBox::information(this, "Success", "Rental has been deleted.");
             static_cast<QSqlTableModel*>(ui->tableViewRentalToDelete->model())->select();
             emit rentalDeleted();
-
         }
     }
 }
 
-
+// filtrowanie po dacie i tekscie
 void deleterental::applyCombinedFilter()
 {
     QSqlTableModel* model = static_cast<QSqlTableModel*>(ui->tableViewRentalToDelete->model());
@@ -120,14 +114,14 @@ void deleterental::applyCombinedFilter()
     model->setFilter(finalFilter);
 }
 
+// aktualizuje filtrowanie po zmianie tekstu
 void deleterental::on_lineEdit_searchRental_textChanged(const QString &)
 {
     applyCombinedFilter();
 }
 
+// aktualizuje filtrowanie po zmianie daty
 void deleterental::on_dateEdit_from_dateChanged(const QDate &)
 {
     applyCombinedFilter();
 }
-
-

@@ -3,10 +3,10 @@
 #include "database.h"
 #include <QMessageBox>
 #include <QSqlQuery>
-
+#include <QTextCharFormat>
+#include <QCalendarWidget>
 
 extern Database db;
-
 
 roomwindow::roomwindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,15 +15,17 @@ roomwindow::roomwindow(QWidget *parent)
     ui->setupUi(this);
     ui->tableViewRooms->setModel(db.getRoomsModel());
 
+    // obsluga klikniecia na wiersz tabeli pokoi
     connect(ui->tableViewRooms, &QTableView::clicked, this, &roomwindow::handleRoomRowClick);
     ui->tableViewRooms->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableViewRooms->setSortingEnabled(true);
 
-    // Po wpisaniu tekstu do lineEdit
+    // filtrowanie po numerze pokoju i cenie
     connect(ui->lineEdit_searchRoomNumber, &QLineEdit::textChanged, this, &roomwindow::applyFilters);
     connect(ui->doubleSpinBox_priceFrom, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &roomwindow::applyFilters);
     connect(ui->doubleSpinBox_priceTo, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &roomwindow::applyFilters);
 
+    // filtrowanie po statusie pokoju
     ui->comboBox_status->addItem("All");
     ui->comboBox_status->addItem("Available");
     ui->comboBox_status->addItem("Occupied");
@@ -35,11 +37,13 @@ roomwindow::~roomwindow()
     delete ui;
 }
 
+// odswieza tabele pokoi po zmianach
 void roomwindow::refreshRoomTable()
 {
     static_cast<QSqlTableModel*>(ui->tableViewRooms->model())->select();
 }
 
+// wyswietla szczegoly pokoju i wypozyczen
 void roomwindow::displayRoomDetails(QWidget *parent, const QString& roomNumber)
 {
     QString roomInfo = db.searchRecord("rooms", "room_number", roomNumber);
@@ -51,61 +55,52 @@ void roomwindow::displayRoomDetails(QWidget *parent, const QString& roomNumber)
 
     if (query.exec()) {
         while (query.next()) {
-            rentalInfo += "— Wypożyczenie #" + query.value("rental_id").toString() +
-                          ", klient ID: " + query.value("client_id").toString() +
-                          ", od: " + query.value("check_in_date").toString() +
-                          ", do: " + query.value("check_out_date").toString() + "\n";
+            rentalInfo += "— Rental #" + query.value("rental_id").toString() +
+                          ", client ID: " + query.value("client_id").toString() +
+                          ", from: " + query.value("check_in_date").toString() +
+                          ", to: " + query.value("check_out_date").toString() + "\n";
         }
     }
 
     QString fullInfo = roomInfo;
 
     if (!rentalInfo.isEmpty()) {
-        fullInfo += "\n\nWypożyczenia pokoju:\n" + rentalInfo.trimmed();
-    } else if (!roomInfo.contains("Nie znaleziono")) {
-        fullInfo += "\n\nPokój nie ma przypisanych wypożyczeń.";
+        fullInfo += "\n\nRoom rentals:\n" + rentalInfo.trimmed();
+    } else if (!roomInfo.contains("Not found")) {
+        fullInfo += "\n\nThis room has no assigned rentals.";
     }
 
-    QMessageBox::information(parent, "Wynik wyszukiwania", fullInfo);
+    QMessageBox::information(parent, "Search result", fullInfo);
 }
 
-void roomwindow::on_pushButton_searchRoom_clicked()
-{
-    QString roomNumber = ui->lineEdit_searchRoomNumber->text().trimmed();
-    if (roomNumber.isEmpty()) {
-        QMessageBox::warning(this, "Błąd", "Wprowadź numer pokoju do wyszukania.");
-        return;
-    }
-
-    roomwindow::displayRoomDetails(this, roomNumber);
-}
-
+// obsluga klikniecia wiersza tabeli - pokazuje szczegoly i podswietla zajete dni
 void roomwindow::handleRoomRowClick(const QModelIndex &index)
 {
     if (!index.isValid()) return;
 
     QString roomNumber = ui->tableViewRooms->model()->data(ui->tableViewRooms->model()->index(index.row(), 0)).toString();
     roomwindow::displayRoomDetails(this, roomNumber);
+
+    // podswietlanie zajetych dni w kalendarzu
+    highlightReservedDates(roomNumber.toInt());
 }
 
-
-
-
+// filtrowanie pokojow po numerze, cenie i statusie
 void roomwindow::applyFilters()
 {
     QString roomPattern = ui->lineEdit_searchRoomNumber->text().trimmed();
     double priceFrom = ui->doubleSpinBox_priceFrom->value();
     double priceTo = ui->doubleSpinBox_priceTo->value();
-    int statusIndex = ui->comboBox_status->currentIndex(); // 0: Wszystkie, 1: Wolne, 2: Zajęte
+    int statusIndex = ui->comboBox_status->currentIndex(); // 0: all, 1: available, 2: occupied
 
     QString filter;
 
-    // Numer pokoju
+    // filtr numeru pokoju
     if (!roomPattern.isEmpty()) {
         filter += QString("CAST(room_number AS TEXT) ILIKE '%%1%%'").arg(roomPattern);
     }
 
-    // Cena
+    // filtr ceny
     if (priceFrom > 0 || priceTo > 0) {
         if (!filter.isEmpty()) filter += " AND ";
         if (priceFrom > 0 && priceTo > 0) {
@@ -117,11 +112,11 @@ void roomwindow::applyFilters()
         }
     }
 
-    // Status pokoju
+    // filtr statusu pokoju
     if (statusIndex == 1) { // tylko wolne
         if (!filter.isEmpty()) filter += " AND ";
         filter += "is_available = true";
-    } else if (statusIndex == 2) { // tylko zajęte
+    } else if (statusIndex == 2) { // tylko zajete
         if (!filter.isEmpty()) filter += " AND ";
         filter += "is_available = false";
     }
@@ -130,3 +125,23 @@ void roomwindow::applyFilters()
     model->setFilter(filter);
 }
 
+// kolorowanie zajetych dni w kalendarzu dla wybranego pokoju
+void roomwindow::highlightReservedDates(int roomNumber)
+{
+    // wyczysc wszystkie formatowania kalendarza
+    ui->calendarWidget->setDateTextFormat(QDate(), QTextCharFormat());
+
+    // pobierz zakresy zajetych dat dla pokoju
+    QList<QPair<QDate, QDate>> reservedRanges = db.getReservedRangesForRoom(roomNumber);
+
+    QTextCharFormat reservedFormat;
+    reservedFormat.setBackground(Qt::red);
+    reservedFormat.setForeground(Qt::white);
+
+    // kolorowanie zajetych dni
+    for (const auto& range : reservedRanges) {
+        for (QDate d = range.first; d <= range.second; d = d.addDays(1)) {
+            ui->calendarWidget->setDateTextFormat(d, reservedFormat);
+        }
+    }
+}

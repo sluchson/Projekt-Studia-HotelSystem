@@ -15,12 +15,13 @@ public:
     explicit addrental(QWidget *parent = nullptr);
     ~addrental();
 
+private:
+    Ui::addrental *ui;
+
 private slots:
     void on_pushButton_add_rental_clicked();
     void updateTotalPrice();
 
-private:
-    Ui::addrental *ui;
 
 signals:
     void rentalAdded();

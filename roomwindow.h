@@ -17,12 +17,13 @@ public:
     static void displayRoomDetails(QWidget *parent, const QString& roomNumber);
     void refreshRoomTable();
 
+
 private:
     Ui::roomwindow *ui;
     void applyFilters();
+    void highlightReservedDates(int roomNumber);
 
 private slots:
-    void on_pushButton_searchRoom_clicked();
     void handleRoomRowClick(const QModelIndex &index);
 
 };

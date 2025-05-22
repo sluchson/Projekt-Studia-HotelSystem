@@ -6,11 +6,8 @@
 class Client
 {
 public:
-    Client(int id, const QString &firstName, const QString &lastName,
-           const QString &email, const QString &phoneNumber);
-
     Client(const QString &firstName, const QString &lastName,
-           const QString &email, const QString &phoneNumber); // NOWY
+           const QString &email, const QString &phoneNumber);
 
     int getId() const;
     QString getFirstName() const;
