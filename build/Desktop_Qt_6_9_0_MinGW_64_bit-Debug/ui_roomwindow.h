@@ -10,6 +10,7 @@
 #define UI_ROOMWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCalendarWidget>
 #include <QtWidgets/QComboBox>
@@ -48,6 +49,8 @@ public:
         if (roomwindow->objectName().isEmpty())
             roomwindow->setObjectName("roomwindow");
         roomwindow->resize(800, 600);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        roomwindow->setWindowIcon(icon);
         centralwidget = new QWidget(roomwindow);
         centralwidget->setObjectName("centralwidget");
         tableViewRooms = new QTableView(centralwidget);

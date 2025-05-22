@@ -12,6 +12,7 @@ addclient::addclient(QWidget *parent) :
     ui(new Ui::addclient)
 {
     ui->setupUi(this);
+    setWindowTitle("Hotel System - Add Client");
 }
 
 addclient::~addclient()

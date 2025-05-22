@@ -10,6 +10,7 @@
 #define UI_DELETERENTAL_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHeaderView>
@@ -41,6 +42,8 @@ public:
         if (deleterental->objectName().isEmpty())
             deleterental->setObjectName("deleterental");
         deleterental->resize(800, 600);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        deleterental->setWindowIcon(icon);
         centralwidget = new QWidget(deleterental);
         centralwidget->setObjectName("centralwidget");
         tableViewRentalToDelete = new QTableView(centralwidget);

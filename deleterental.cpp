@@ -12,6 +12,7 @@ deleterental::deleterental(QWidget *parent)
     , ui(new Ui::deleterental)
 {
     ui->setupUi(this);
+    setWindowTitle("Hotel System - Delete Rental");
     rentalsModel = db.getRentalsModel();
     ui->tableViewRentalToDelete->setModel(rentalsModel);
 

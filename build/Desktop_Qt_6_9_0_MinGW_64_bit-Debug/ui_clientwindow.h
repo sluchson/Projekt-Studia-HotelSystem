@@ -10,6 +10,7 @@
 #define UI_CLIENTWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -42,6 +43,8 @@ public:
             clientwindow->setObjectName("clientwindow");
         clientwindow->setEnabled(true);
         clientwindow->resize(800, 598);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        clientwindow->setWindowIcon(icon);
         centralwidget = new QWidget(clientwindow);
         centralwidget->setObjectName("centralwidget");
         tableViewClients = new QTableView(centralwidget);

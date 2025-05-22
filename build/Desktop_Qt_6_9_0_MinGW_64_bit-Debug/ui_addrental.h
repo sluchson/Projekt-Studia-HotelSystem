@@ -10,6 +10,7 @@
 #define UI_ADDRENTAL_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDateEdit>
@@ -47,6 +48,8 @@ public:
         if (addrental->objectName().isEmpty())
             addrental->setObjectName("addrental");
         addrental->resize(800, 600);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        addrental->setWindowIcon(icon);
         centralwidget = new QWidget(addrental);
         centralwidget->setObjectName("centralwidget");
         pushButton_add_rental = new QPushButton(centralwidget);

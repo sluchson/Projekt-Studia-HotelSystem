@@ -10,6 +10,7 @@
 #define UI_DELETECLIENT_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -38,6 +39,8 @@ public:
         if (deleteclient->objectName().isEmpty())
             deleteclient->setObjectName("deleteclient");
         deleteclient->resize(800, 600);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        deleteclient->setWindowIcon(icon);
         centralwidget = new QWidget(deleteclient);
         centralwidget->setObjectName("centralwidget");
         tableViewClientToDelete = new QTableView(centralwidget);

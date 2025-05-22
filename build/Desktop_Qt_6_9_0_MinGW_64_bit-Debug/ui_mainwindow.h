@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -39,6 +40,8 @@ public:
         MainWindow->resize(801, 600);
         MainWindow->setMaximumSize(QSize(801, 600));
         MainWindow->setMouseTracking(false);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        MainWindow->setWindowIcon(icon);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         ClientsButton = new QPushButton(centralwidget);

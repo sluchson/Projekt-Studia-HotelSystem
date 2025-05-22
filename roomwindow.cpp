@@ -13,6 +13,7 @@ roomwindow::roomwindow(QWidget *parent)
     , ui(new Ui::roomwindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Hotel System - Rooms");
     ui->tableViewRooms->setModel(db.getRoomsModel());
 
     // obsluga klikniecia na wiersz tabeli pokoi

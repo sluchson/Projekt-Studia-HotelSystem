@@ -11,6 +11,7 @@
 
 #include <QtCore/QDate>
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QHeaderView>
@@ -45,6 +46,8 @@ public:
         if (rentalwindow->objectName().isEmpty())
             rentalwindow->setObjectName("rentalwindow");
         rentalwindow->resize(800, 600);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        rentalwindow->setWindowIcon(icon);
         centralwidget = new QWidget(rentalwindow);
         centralwidget->setObjectName("centralwidget");
         tableViewRentals = new QTableView(centralwidget);

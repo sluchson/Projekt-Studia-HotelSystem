@@ -14,6 +14,8 @@ addrental::addrental(QWidget *parent)
 {
     ui->setupUi(this);
 
+    setWindowTitle("Hotel System - Add Rental");
+
     // laduj klientow do comboboxa
     QSqlQuery clientsQuery("SELECT client_id, first_name || ' ' || last_name AS full_name FROM clients");
     while (clientsQuery.next()) {

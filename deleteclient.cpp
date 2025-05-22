@@ -13,6 +13,7 @@ deleteclient::deleteclient(QWidget *parent)
     , ui(new Ui::deleteclient)
 {
     ui->setupUi(this);
+    setWindowTitle("Hotel System - Delete Client");
     clientsModel = db.getClientsModel();
     ui->tableViewClientToDelete->setModel(clientsModel);
     // polaczenie klikniecia wiersza z funkcja usuwania

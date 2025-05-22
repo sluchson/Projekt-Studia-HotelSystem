@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>addclient</class>
  <widget class="QMainWindow" name="addclient">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,8 +13,16 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <italic>false</italic>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Add Client</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="QIcon::ThemeIcon::ContactNew"/>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -52,6 +63,7 @@
     </property>
     <property name="font">
      <font>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -73,6 +85,7 @@
     </property>
     <property name="font">
      <font>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -104,6 +117,7 @@
     </property>
     <property name="font">
      <font>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -135,6 +149,7 @@
     </property>
     <property name="font">
      <font>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
@@ -166,6 +181,7 @@
     </property>
     <property name="font">
      <font>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>

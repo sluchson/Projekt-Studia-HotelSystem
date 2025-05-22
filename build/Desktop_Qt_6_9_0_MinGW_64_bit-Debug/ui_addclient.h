@@ -10,6 +10,7 @@
 #define UI_ADDCLIENT_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -42,51 +43,58 @@ public:
     {
         if (addclient->objectName().isEmpty())
             addclient->setObjectName("addclient");
+        addclient->setWindowModality(Qt::WindowModality::NonModal);
         addclient->resize(800, 600);
+        QFont font;
+        font.setItalic(false);
+        addclient->setFont(font);
+        QIcon icon(QIcon::fromTheme(QIcon::ThemeIcon::ContactNew));
+        addclient->setWindowIcon(icon);
         addclient->setAutoFillBackground(false);
         centralwidget = new QWidget(addclient);
         centralwidget->setObjectName("centralwidget");
         labelClients = new QLabel(centralwidget);
         labelClients->setObjectName("labelClients");
         labelClients->setGeometry(QRect(20, 10, 261, 49));
-        QFont font;
-        font.setPointSize(24);
-        font.setBold(true);
-        font.setItalic(false);
-        font.setUnderline(false);
-        labelClients->setFont(font);
+        QFont font1;
+        font1.setPointSize(24);
+        font1.setBold(true);
+        font1.setItalic(false);
+        font1.setUnderline(false);
+        labelClients->setFont(font1);
         labelClients->setAutoFillBackground(false);
         label = new QLabel(centralwidget);
         label->setObjectName("label");
         label->setGeometry(QRect(320, 110, 71, 16));
-        QFont font1;
-        font1.setBold(true);
-        label->setFont(font1);
+        QFont font2;
+        font2.setBold(true);
+        font2.setItalic(false);
+        label->setFont(font2);
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName("label_2");
         label_2->setGeometry(QRect(320, 170, 81, 16));
-        label_2->setFont(font1);
+        label_2->setFont(font2);
         lastNameEdit = new QLineEdit(centralwidget);
         lastNameEdit->setObjectName("lastNameEdit");
         lastNameEdit->setGeometry(QRect(320, 190, 181, 31));
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName("label_3");
         label_3->setGeometry(QRect(320, 230, 71, 16));
-        label_3->setFont(font1);
+        label_3->setFont(font2);
         emailEdit = new QLineEdit(centralwidget);
         emailEdit->setObjectName("emailEdit");
         emailEdit->setGeometry(QRect(320, 250, 181, 31));
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName("label_4");
         label_4->setGeometry(QRect(320, 290, 71, 16));
-        label_4->setFont(font1);
+        label_4->setFont(font2);
         phoneEdit = new QLineEdit(centralwidget);
         phoneEdit->setObjectName("phoneEdit");
         phoneEdit->setGeometry(QRect(320, 310, 181, 31));
         addButton = new QPushButton(centralwidget);
         addButton->setObjectName("addButton");
         addButton->setGeometry(QRect(360, 360, 101, 61));
-        addButton->setFont(font1);
+        addButton->setFont(font2);
         firstNameEdit = new QLineEdit(centralwidget);
         firstNameEdit->setObjectName("firstNameEdit");
         firstNameEdit->setGeometry(QRect(320, 130, 181, 31));

@@ -14,6 +14,7 @@ rentalwindow::rentalwindow(QWidget *parent)
     , ui(new Ui::rentalwindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Hotel System - Rentals");
     ui->tableViewRentals->setModel(db.getRentalsModel());
 
     // po kliknieciu w tabele wypozyczen, wyswietl szczegoly

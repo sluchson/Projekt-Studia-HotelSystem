@@ -13,6 +13,7 @@ clientwindow::clientwindow(QWidget *parent)
     , ui(new Ui::clientwindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Hotel System - Clients");
     ui->tableViewClients->setModel(db.getClientsModel());
 
     // klikniecie w wiersz tabeli pokazuje szczegoly klienta
